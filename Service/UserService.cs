@@ -8,7 +8,14 @@ namespace Service
     {
         public UserResponse AddUser(UserAddRequest? request)
         {
-            throw new NotImplementedException();
+            if(request == null)
+            {
+                throw new ArgumentNullException(nameof(request), "UserAddRequest cannot be null.");
+            }
+            if (string.IsNullOrEmpty(request.UserName))
+            {
+                throw new ArgumentException("UserName cannot be null.", nameof(request.UserName));
+            }
         }
 
         public List<UserResponse> ListAllUser()
