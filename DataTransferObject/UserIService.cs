@@ -6,5 +6,7 @@ namespace DataTransferObject
     {
         UserResponse AddUser (UserAddRequest? request);
         List<UserResponse> ListAllUser ();
+        UserResponse? GetUserByID(Guid? UserID);
+        List<UserResponse> SearchUserBy (string searchBy, string? SearchString);
     }
 }

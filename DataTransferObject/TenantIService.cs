@@ -11,6 +11,7 @@ namespace DataTransferObject
     {
         TenantResponse AddTenant(TenantAddRequest? countryAddRequest);
         List<TenantResponse> ListAllTenant();
+        TenantResponse? GetTenantByID(Guid? tenantID);
 
     }
 }

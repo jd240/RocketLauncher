@@ -14,7 +14,7 @@ namespace TestDriven
         #region AddTenant
         //When TenantAddRequest is null, it should throw ArgumentNullException
         [Fact]
-        public void AddTenant_NullCountry()
+        public void AddTenant_NullTenant()
         {
             //Arrange
             TenantAddRequest? request = null;
@@ -84,10 +84,10 @@ namespace TestDriven
         public void GetAllCountries_EmptyList()
         {
             //Act
-            List<TenantResponse> actual_country_response_list = _tenantService.ListAllTenant();
+            List<TenantResponse> actual_Tenant_response_list = _tenantService.ListAllTenant();
 
             //Assert
-            Assert.Empty(actual_country_response_list);
+            Assert.Empty(actual_Tenant_response_list);
         }
 
         [Fact]
@@ -110,11 +110,44 @@ namespace TestDriven
             List<TenantResponse> actualTenantResponseList = _tenantService.ListAllTenant();
 
             //read each element from tenants_list_from_add_tenant
-            foreach (TenantResponse expected_country in tenants_list_from_add_tenant)
+            foreach (TenantResponse expected_Tenant in tenants_list_from_add_tenant)
             {
-                Assert.Contains(expected_country, actualTenantResponseList);
+                Assert.Contains(expected_Tenant, actualTenantResponseList);
             }
         }
         #endregion
+        #region GetTenantByTenantID
+
+    [Fact]
+    //If we supply null as TenantID, it should return null as TenantResponse
+    public void GetTenantByTenantID_NullTenantID()
+    {
+      //Arrange
+      Guid? tID = null;
+
+      //Act
+      TenantResponse? Tenant_response_from_get_method = _tenantService.GetTenantByID(tID);
+
+
+      //Assert
+      Assert.Null(Tenant_response_from_get_method);
+    }
+
+
+    [Fact]
+    //If we supply a valid Tenant id, it should return the matching Tenant details as TenantResponse object
+    public void GetTenantByTenantID_ValidTenantID()
+    {
+      //Arrange
+      TenantAddRequest? Tenant_add_request = new TenantAddRequest() { TenantName = "Example Tenant" };
+      TenantResponse Tenant_response_from_add = _tenantService.AddTenant(Tenant_add_request);
+
+      //Act
+      TenantResponse? Tenant_response_from_get = _tenantService.GetTenantByID(Tenant_response_from_add.TenantID);
+
+      //Assert
+      Assert.Equal(Tenant_response_from_add, Tenant_response_from_get);
+    }
+    #endregion
     }
 }

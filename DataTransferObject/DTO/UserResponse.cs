@@ -15,7 +15,9 @@ namespace DataTransferObject.DTO
         public bool emailVerified { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? Role { get; set; }
+        public Guid? TenantID { get; set; }
         public string? Address { get; set; }
+        public string? TenantName { get; set; }
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;
@@ -25,7 +27,7 @@ namespace DataTransferObject.DTO
             UserResponse person = (UserResponse)obj;
             return UserID == person.UserID && UserName == person.UserName && FirstName == person.FirstName && LastName == person.LastName 
                 && Email == person.Email && emailVerified == person.emailVerified && DateOfBirth == person.DateOfBirth && Role == person.Role 
-                && Address == person.Address;
+                && Address == person.Address && TenantID == person.TenantID;
         }
 
         public override int GetHashCode()
@@ -54,7 +56,8 @@ namespace DataTransferObject.DTO
                 emailVerified = person.emailVerified,
                 DateOfBirth = person.DateOfBirth,
                 Role = person.Role,
-                Address = person.Address
+                Address = person.Address,
+                TenantID = person.TenantID
             };
         }
     }

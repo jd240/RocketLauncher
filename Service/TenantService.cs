@@ -1,6 +1,7 @@
 ﻿using DataTransferObject;
 using DataTransferObject.DTO;
 using Entities;
+using System.Diagnostics.Metrics;
 
 namespace Services
 {
@@ -36,6 +37,18 @@ namespace Services
         public List<TenantResponse> ListAllTenant()
         {
             return _tenants.Select(tenant => tenant.ToTenantResponse()).ToList();
+        }
+        public TenantResponse? GetTenantByID(Guid? TenantID)
+        {
+            if (TenantID == null)
+                return null;
+
+            WhiteLabelTenant? tenant_response_from_list = _tenants.FirstOrDefault(temp => temp.TenantID == TenantID);
+
+            if (tenant_response_from_list == null)
+                return null;
+
+            return tenant_response_from_list.ToTenantResponse();
         }
     }
 }
