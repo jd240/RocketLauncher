@@ -1,9 +1,11 @@
 ﻿using DataTransferObject;
 using DataTransferObject.DTO;
+using DataTransferObject.Enum;
 using Entities;
 using Services;
 using Services.Helpers;
 using System;
+using System.Linq;
 using System.Xml.Schema;
 
 namespace Service
@@ -105,12 +107,43 @@ namespace Service
                     temp.Address.Contains(SearchString, StringComparison.OrdinalIgnoreCase) :
                     true)).ToList();
                     break;
+                case nameof(User.DateOfBirth):
+                    MatchedResult = result.Where(temp => 
+                    (temp.DateOfBirth != null) ? 
+                    temp.DateOfBirth.Value.ToString("dd MMMM yyyy").Contains(SearchString, StringComparison.OrdinalIgnoreCase) : true).ToList();
+                    break;
 
                 default:
                     MatchedResult = result;
                     break;
             }
             return MatchedResult;
+        }
+
+        public List<UserResponse> GetSortedUser(List<UserResponse> allusers, string SortBy, SortOrderOption sortorder)
+        {
+            if(string.IsNullOrEmpty(SortBy))
+            {
+                return allusers;
+            }
+            List<UserResponse> sortedList = (SortBy, sortorder) 
+            switch
+            {
+                (nameof(UserResponse.UserName), SortOrderOption.ASC) => allusers.OrderBy(temp => temp.UserName, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.UserName), SortOrderOption.DESC) => allusers.OrderByDescending(temp => temp.UserName, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.FirstName), SortOrderOption.ASC) => allusers.OrderBy(temp => temp.FirstName, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.FirstName), SortOrderOption.DESC) => allusers.OrderByDescending(temp => temp.FirstName, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.LastName), SortOrderOption.ASC) => allusers.OrderBy(temp => temp.LastName, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.LastName), SortOrderOption.DESC) => allusers.OrderByDescending(temp => temp.LastName, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.Email), SortOrderOption.ASC) => allusers.OrderBy(temp => temp.Email, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.Email), SortOrderOption.DESC) => allusers.OrderByDescending(temp => temp.Email, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.DateOfBirth), SortOrderOption.ASC) => allusers.OrderBy(temp => temp.DateOfBirth).ToList(),
+                (nameof(UserResponse.DateOfBirth), SortOrderOption.DESC) => allusers.OrderByDescending(temp => temp.DateOfBirth).ToList(),
+                (nameof(UserResponse.Address), SortOrderOption.ASC) => allusers.OrderBy(temp => temp.Address, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(UserResponse.Address), SortOrderOption.DESC) => allusers.OrderByDescending(temp => temp.Address, StringComparer.OrdinalIgnoreCase).ToList(),
+                _ => allusers
+            };
+            return sortedList;
         }
     }
 }

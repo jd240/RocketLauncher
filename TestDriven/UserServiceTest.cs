@@ -1,5 +1,6 @@
 ﻿using DataTransferObject;
 using DataTransferObject.DTO;
+using DataTransferObject.Enum;
 using Entities;
 using Service;
 using Services;
@@ -344,16 +345,86 @@ namespace TestDriven
                 expected_user_responses.Add(response);
             }
             //Act
-            List<UserResponse> actual_user_responses_from_search = _userService.SearchUserBy(nameof(User.UserName), "Blaster");
+            List<UserResponse> actual_user_responses_from_search = _userService.SearchUserBy(nameof(User.DateOfBirth), "2001-11-08");
             //Assert
             foreach (var expected_user_response in expected_user_responses)
             {
-                if (expected_user_response.UserName != null && expected_user_response.UserName.Contains("Blaster", StringComparison.OrdinalIgnoreCase))
+                if (expected_user_response.UserName != null && expected_user_response.UserName.Contains("2001-11-08", StringComparison.OrdinalIgnoreCase))
                 {
                     Assert.Contains(expected_user_response, actual_user_responses_from_search);
                 }
             }
-            #endregion
         }
+        #endregion
+        #region getSortedUsers
+        [Fact]
+        public void getSortedUsers_DESC()
+        {
+            TenantAddRequest tenant_request_1 = new TenantAddRequest() { TenantName = "ABC Law School" };
+            TenantResponse tenant_response_1 = _tenantsService.AddTenant(tenant_request_1);
+            TenantAddRequest tenant_request_2 = new TenantAddRequest() { TenantName = "DEF Law School" };
+            TenantResponse tenant_response_2 = _tenantsService.AddTenant(tenant_request_2);
+            UserAddRequest user_Request_1 = new UserAddRequest()
+            {
+                UserName = "DuaBlaster...",
+                FirstName = "Dual",
+                LastName = "Mystic"
+    ,
+                Email = "Duall@example.com",
+                Address = "Dual address",
+                Role = DataTransferObject.Enum.Role.User,
+                DateOfBirth = DateTime.Parse("1998-02-02"),
+                emailVerified = true,
+                TenantID = tenant_response_1.TenantID
+            };
+            UserAddRequest user_Request_2 = new UserAddRequest()
+            {
+                UserName = "Kialaster...",
+                FirstName = "Kia",
+                LastName = "Burger"
+,
+                Email = "Kia@example.com",
+                Address = "Kia address",
+                Role = DataTransferObject.Enum.Role.User,
+                DateOfBirth = DateTime.Parse("2004-04-04"),
+                emailVerified = true,
+                TenantID = tenant_response_2.TenantID
+            };
+            UserAddRequest user_Request_3 = new UserAddRequest()
+            {
+                UserName = "NerfBlaster...",
+                FirstName = "Nerf",
+                LastName = "Machine"
+,
+                Email = "Nerf@example.com",
+                Address = "Nerf address",
+                Role = DataTransferObject.Enum.Role.User,
+                DateOfBirth = DateTime.Parse("2001-11-08"),
+                emailVerified = true,
+                TenantID = tenant_response_1.TenantID
+            };
+            List<UserAddRequest> user_requests = new List<UserAddRequest>()
+            {
+                user_Request_1,
+                user_Request_2,
+                user_Request_3
+            };
+            List<UserResponse> expected_user_responses = new List<UserResponse>();
+            foreach (var user_request in user_requests)
+            {
+                UserResponse response = _userService.AddUser(user_request);
+                expected_user_responses.Add(response);
+            }
+            //Act
+            List<UserResponse> actual_user_responses_from_unsorted = _userService.ListAllUser();
+            List<UserResponse> actual_user_responses_from_search = _userService.GetSortedUser(actual_user_responses_from_unsorted, nameof(User.UserName), SortOrderOption.DESC);
+            expected_user_responses = expected_user_responses.OrderByDescending(user => user.UserName).ToList();
+            //Assert
+            for (int i = 0; i < expected_user_responses.Count; i++)
+            {
+                Assert.Equal(expected_user_responses[i], actual_user_responses_from_search[i]);
+            }
+        }
+        #endregion
     }
 }
