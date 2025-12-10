@@ -1,11 +1,12 @@
 ﻿using DataTransferObject;
 using DataTransferObject.DTO;
-using DataTransferObject.Enum;
+using DataTransferObject.Enums;
 using Entities;
 using Service;
 using Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using Xunit;
 namespace TestDriven
@@ -45,7 +46,7 @@ namespace TestDriven
                 LastName = "Duong",
                 Email = "invalid-email-format", // Invalid email
                 Address = "sample address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2000-01-01"),
                 emailVerified = true,
                 TenantID = new Guid()
@@ -83,7 +84,7 @@ namespace TestDriven
                 ,
                 Email = "person@example.com",
                 Address = "sample address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2000-01-01"),
                 emailVerified = true,
                 TenantID = new Guid()
@@ -137,7 +138,7 @@ namespace TestDriven
     ,
                 Email = "Email@example.com",
                 Address = "sample address 2",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1999-01-01"),
                 emailVerified = true,
                 TenantID = tenant_response.TenantID
@@ -167,7 +168,7 @@ namespace TestDriven
     ,
                 Email = "Duall@example.com",
                 Address = "Dual address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -180,7 +181,7 @@ namespace TestDriven
 ,
                 Email = "Kia@example.com",
                 Address = "Kia address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
                 TenantID = tenant_response_2.TenantID
@@ -193,7 +194,7 @@ namespace TestDriven
 ,
                 Email = "Nerf@example.com",
                 Address = "Nerf address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -235,7 +236,7 @@ namespace TestDriven
     ,
                 Email = "Duall@example.com",
                 Address = "Dual address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -248,7 +249,7 @@ namespace TestDriven
 ,
                 Email = "Kia@example.com",
                 Address = "Kia address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
                 TenantID = tenant_response_2.TenantID
@@ -261,7 +262,7 @@ namespace TestDriven
 ,
                 Email = "Nerf@example.com",
                 Address = "Nerf address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -301,7 +302,7 @@ namespace TestDriven
     ,
                 Email = "Duall@example.com",
                 Address = "Dual address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -314,7 +315,7 @@ namespace TestDriven
 ,
                 Email = "Kia@example.com",
                 Address = "Kia address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
                 TenantID = tenant_response_2.TenantID
@@ -327,7 +328,7 @@ namespace TestDriven
 ,
                 Email = "Nerf@example.com",
                 Address = "Nerf address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -372,7 +373,7 @@ namespace TestDriven
     ,
                 Email = "Duall@example.com",
                 Address = "Dual address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -385,7 +386,7 @@ namespace TestDriven
 ,
                 Email = "Kia@example.com",
                 Address = "Kia address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
                 TenantID = tenant_response_2.TenantID
@@ -398,7 +399,7 @@ namespace TestDriven
 ,
                 Email = "Nerf@example.com",
                 Address = "Nerf address",
-                Role = DataTransferObject.Enum.Role.User,
+                UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
                 TenantID = tenant_response_1.TenantID
@@ -424,6 +425,58 @@ namespace TestDriven
             {
                 Assert.Equal(expected_user_responses[i], actual_user_responses_from_search[i]);
             }
+        }
+        #endregion
+        #region updateUser
+        [Fact]
+        public void updateUser_InvalidRequest()
+        {
+            UserUpdateRequest? user_request = null;
+
+            Assert.Throws<ArgumentNullException>(() => { _userService.UpdateUser(user_request); });
+        }
+        [Fact]
+        public void UserUpdateRequest_WithOnlyUserId_FailsValidation()
+        {
+            // Arrange
+            var dto = new UserUpdateRequest
+            {
+                UserId = Guid.NewGuid()
+                // all other props null / default
+            };
+
+            var context = new ValidationContext(dto);
+            var results = new List<ValidationResult>();
+
+            // Act
+            bool isValid = Validator.TryValidateObject(dto, context, results, validateAllProperties: true);
+
+            // Assert
+            Assert.False(isValid);
+            Assert.Contains(results, r =>
+                r.ErrorMessage != null &&
+                r.ErrorMessage.Contains("at least one field", StringComparison.OrdinalIgnoreCase));
+        }
+        [Fact]
+        public void UserUpdateRequest_WithOnlyUserId_SuccessValidation()
+        {
+            // Arrange
+            var dto = new UserUpdateRequest
+            {
+                UserId = Guid.NewGuid(),
+                UserName = "Tim"
+                // all other props null / default
+            };
+
+            var context = new ValidationContext(dto);
+            var results = new List<ValidationResult>();
+
+            // Act
+            bool isValid = Validator.TryValidateObject(dto, context, results, validateAllProperties: true);
+
+            // Assert
+            Assert.True(isValid);
+
         }
         #endregion
     }

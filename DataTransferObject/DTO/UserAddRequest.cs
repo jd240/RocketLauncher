@@ -1,4 +1,4 @@
-﻿using DataTransferObject.Enum;
+﻿using DataTransferObject.Enums;
 using Entities;
 using System;
 using System.Collections.Generic;
@@ -19,13 +19,13 @@ namespace DataTransferObject.DTO
         public string? Email { get; set; }
         public bool emailVerified { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public Role? Role { get; set; }
+        public Role? UserRole { get; set; }
         public Guid? TenantID { get; set; }
         public string? Address { get; set; }
         public User toUser()
         {
             return new User() { UserName = UserName, FirstName = FirstName, LastName = LastName, Email = Email, emailVerified = emailVerified, 
-                DateOfBirth = DateOfBirth, Role = Role.ToString(), Address = Address, TenantID = TenantID};
+                DateOfBirth = DateOfBirth, UserRole = UserRole.ToString(), Address = Address, TenantID = TenantID};
         }
     }
 }

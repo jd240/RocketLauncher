@@ -1,6 +1,6 @@
 ﻿using DataTransferObject;
 using DataTransferObject.DTO;
-using DataTransferObject.Enum;
+using DataTransferObject.Enums;
 using Entities;
 using Services;
 using Services.Helpers;
@@ -89,10 +89,10 @@ namespace Service
                     temp.Email.Contains(SearchString, StringComparison.OrdinalIgnoreCase) :
                     true)).ToList();
                     break;
-                case nameof(User.Role):
+                case nameof(User.UserRole):
                     MatchedResult = result.Where(temp =>
-                    (!string.IsNullOrEmpty(temp.Role) ?
-                    temp.Role.Contains(SearchString, StringComparison.OrdinalIgnoreCase) :
+                    (!string.IsNullOrEmpty(temp.UserRole) ?
+                    temp.UserRole.Contains(SearchString, StringComparison.OrdinalIgnoreCase) :
                     true)).ToList();
                     break;
                 case nameof(User.TenantID):
@@ -144,6 +144,11 @@ namespace Service
                 _ => allusers
             };
             return sortedList;
+        }
+
+        public UserResponse UpdateUser(UserUpdateRequest? request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

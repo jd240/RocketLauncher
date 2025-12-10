@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace DataTransferObject.Enum
+namespace DataTransferObject.Enums
 {
     public enum SortOrderOption
     {

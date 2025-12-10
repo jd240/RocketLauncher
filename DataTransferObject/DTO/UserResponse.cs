@@ -1,6 +1,8 @@
-﻿using Entities;
+﻿using DataTransferObject.Enums;
+using Entities;
 using System;
 using System.Reflection;
+using System.Xml.Linq;
 
 
 namespace DataTransferObject.DTO
@@ -12,9 +14,9 @@ namespace DataTransferObject.DTO
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
-        public bool emailVerified { get; set; }
+        public bool? emailVerified { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string? Role { get; set; }
+        public string? UserRole { get; set; }
         public Guid? TenantID { get; set; }
         public string? Address { get; set; }
         public string? TenantName { get; set; }
@@ -26,13 +28,29 @@ namespace DataTransferObject.DTO
 
             UserResponse person = (UserResponse)obj;
             return UserID == person.UserID && UserName == person.UserName && FirstName == person.FirstName && LastName == person.LastName 
-                && Email == person.Email && emailVerified == person.emailVerified && DateOfBirth == person.DateOfBirth && Role == person.Role 
+                && Email == person.Email && emailVerified == person.emailVerified && DateOfBirth == person.DateOfBirth && UserRole == person.UserRole 
                 && Address == person.Address && TenantID == person.TenantID;
         }
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+        public UserUpdateRequest toUserUpdateRequest()
+        {
+            return new UserUpdateRequest()
+            {
+                UserId = UserID,
+                UserName = UserName,
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                emailVerified = emailVerified,
+                DateOfBirth = DateOfBirth,
+                UserRole = Enum.Parse<Role>(UserRole, true),
+                Address = Address,
+                TenantID = TenantID
+            };
         }
     }
 
@@ -55,7 +73,7 @@ namespace DataTransferObject.DTO
                 Email = person.Email,
                 emailVerified = person.emailVerified,
                 DateOfBirth = person.DateOfBirth,
-                Role = person.Role,
+                UserRole = person.UserRole,
                 Address = person.Address,
                 TenantID = person.TenantID
             };

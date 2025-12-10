@@ -1,11 +1,12 @@
 ﻿using System;
 using DataTransferObject.DTO;
-using DataTransferObject.Enum;
+using DataTransferObject.Enums;
 namespace DataTransferObject
 {
     public interface UserIService
     {
         UserResponse AddUser (UserAddRequest? request);
+        UserResponse UpdateUser (UserUpdateRequest? request);
         List<UserResponse> ListAllUser ();
         UserResponse? GetUserByID(Guid? UserID);
         List<UserResponse> SearchUserBy (string searchBy, string? SearchString);
