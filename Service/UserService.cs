@@ -148,7 +148,66 @@ namespace Service
 
         public UserResponse UpdateUser(UserUpdateRequest? request)
         {
-            throw new NotImplementedException();
+            if (request == null)
+                throw new ArgumentNullException(nameof(User));
+
+            //validation
+            ValidationHelper.ModelValidation(request);
+
+            //get matching person object to update
+            User? matchingUser = _users.FirstOrDefault(temp => temp.UserID == request.UserId);
+            if (matchingUser == null)
+            {
+                throw new ArgumentException("Given person id doesn't exist");
+            }
+
+            //update all details
+            // Only update if supplied
+            if (!string.IsNullOrWhiteSpace(request.UserName))
+                matchingUser.UserName = request.UserName;
+
+            if (!string.IsNullOrWhiteSpace(request.FirstName))
+                matchingUser.FirstName = request.FirstName;
+
+            if (!string.IsNullOrWhiteSpace(request.LastName))
+                matchingUser.LastName = request.LastName;
+
+            if (!string.IsNullOrWhiteSpace(request.Email))
+                matchingUser.Email = request.Email;
+
+            if (request.DateOfBirth.HasValue)
+                matchingUser.DateOfBirth = request.DateOfBirth;
+
+            if (request.UserRole.HasValue)
+                matchingUser.UserRole = request.UserRole.Value.ToString();
+
+            if (request.TenantID.HasValue)
+                matchingUser.TenantID = request.TenantID;
+
+            if (!string.IsNullOrWhiteSpace(request.Address))
+                matchingUser.Address = request.Address;
+            
+            if (request.emailVerified.HasValue)
+                matchingUser.emailVerified = request.emailVerified.Value;
+
+
+            return matchingUser.ToPersonResponse();
+        }
+
+        public bool DeleteUser(Guid? UserID)
+        {
+            if (UserID == null)
+            {
+                throw new ArgumentNullException(nameof(UserID));
+            }
+
+            User? user = _users.FirstOrDefault(temp => temp.UserID == UserID);
+            if (user == null)
+                return false;
+
+            _users.RemoveAll(temp => temp.UserID == UserID);
+
+            return true;
         }
     }
 }

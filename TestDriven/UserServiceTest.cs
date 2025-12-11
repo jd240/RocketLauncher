@@ -478,6 +478,82 @@ namespace TestDriven
             Assert.True(isValid);
 
         }
+        [Fact]
+        public void UpdatePerson_UserFullDetailsUpdation()
+        {
+            //Arrange
+            TenantAddRequest tenant_add_request = new TenantAddRequest() { TenantName = "A Corp" };
+            TenantResponse tenant_response_from_add = _tenantsService.AddTenant(tenant_add_request);
+
+            UserAddRequest user_add_request = new UserAddRequest() { 
+                UserName = "JohnW",
+                FirstName = "John",
+                LastName = "Wick",
+                TenantID = tenant_response_from_add.TenantID, 
+                Address = "Abc road", 
+                DateOfBirth = DateTime.Parse("2000-01-01"), 
+                Email = "abc@example.com", 
+                UserRole = Role.User, 
+                emailVerified = true };
+
+            UserResponse user_response_from_add = _userService.AddUser(user_add_request);
+
+            UserUpdateRequest user_update_request = user_response_from_add.toUserUpdateRequest();
+            user_update_request.UserName = "WilliamJ";
+            user_update_request.Email = "william@example.com";
+
+            //Act
+            UserResponse user_response_from_update = _userService.UpdateUser(user_update_request);
+
+            UserResponse? user_response_from_get = _userService.GetUserByID(user_response_from_update.UserID);
+
+            //Assert
+            Assert.Equal(user_response_from_get, user_response_from_update);
+
+        }
+        #endregion
+        #region deleteUser
+        //If you supply an valid PersonID, it should return true
+        [Fact]
+        public void DeletePerson_ValidPersonID()
+        {
+            //Arrange
+            TenantAddRequest tenant_add_request = new TenantAddRequest() { TenantName = "A Corp" };
+            TenantResponse tenant_response_from_add = _tenantsService.AddTenant(tenant_add_request);
+
+            UserAddRequest user_add_request = new UserAddRequest()
+            {
+                UserName = "JohnW",
+                FirstName = "John",
+                LastName = "Wick",
+                TenantID = tenant_response_from_add.TenantID,
+                Address = "Abc road",
+                DateOfBirth = DateTime.Parse("2000-01-01"),
+                Email = "abc@example.com",
+                UserRole = Role.User,
+                emailVerified = true
+            };
+
+            UserResponse user_response_from_add = _userService.AddUser(user_add_request);
+
+            //Act
+            bool isDeleted = _userService.DeleteUser(user_response_from_add.UserID);
+
+            //Assert
+            Assert.True(isDeleted);
+        }
+
+
+        //If you supply an invalid PersonID, it should return false
+        [Fact]
+        public void DeletePerson_InvalidPersonID()
+        {
+            //Act
+            bool isDeleted = _userService.DeleteUser(Guid.NewGuid());
+
+            //Assert
+            Assert.False(isDeleted);
+        }
         #endregion
     }
 }

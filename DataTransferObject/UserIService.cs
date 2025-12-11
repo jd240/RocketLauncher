@@ -7,6 +7,7 @@ namespace DataTransferObject
     {
         UserResponse AddUser (UserAddRequest? request);
         UserResponse UpdateUser (UserUpdateRequest? request);
+        bool DeleteUser (Guid? UserID);
         List<UserResponse> ListAllUser ();
         UserResponse? GetUserByID(Guid? UserID);
         List<UserResponse> SearchUserBy (string searchBy, string? SearchString);
