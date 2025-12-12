@@ -9,9 +9,39 @@ namespace Services
     {
 
         private readonly List<WhiteLabelTenant> _tenants;
-        public TenantService()
+        public TenantService(bool initialize = true)
         {
             _tenants = new List<WhiteLabelTenant>();
+            if (initialize) {
+                _tenants.AddRange(new List<WhiteLabelTenant>()
+                {
+                new WhiteLabelTenant()
+                {
+                    TenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
+                    TenantName = "Tenant A"
+                },
+                new WhiteLabelTenant()
+                {
+                    TenantID = Guid.Parse("1E83383A-8816-4DF8-A6D3-6C336CEF4CC4"),
+                    TenantName = "Tenant B"
+                },
+                new WhiteLabelTenant()
+                {
+                    TenantID = Guid.Parse("CBB21EA5-9C63-4E6E-9F02-37918E3BDBF2"),
+                    TenantName = "Tenant C"
+                },
+                new WhiteLabelTenant()
+                {
+                    TenantID = Guid.Parse("2431659E-879F-4EEB-B172-81C6776B686B"),
+                    TenantName = "Tenant D"
+                },
+                new WhiteLabelTenant()
+                {
+                    TenantID = Guid.Parse("427E3E9C-1254-48D0-B0C1-50FC4BB936C8"),
+                    TenantName = "Tenant E"
+                }
+                });
+            }
         }
         public TenantResponse AddTenant(TenantAddRequest? TenantAddRequest)
         {
@@ -50,5 +80,6 @@ namespace Services
 
             return tenant_response_from_list.ToTenantResponse();
         }
+
     }
 }

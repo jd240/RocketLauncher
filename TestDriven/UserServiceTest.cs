@@ -17,8 +17,8 @@ namespace TestDriven
         private readonly TenantIService _tenantsService;
         public UserServiceTest()
         {
-            _userService = new UserService();
-            _tenantsService = new TenantService();
+            _userService = new UserService(false);
+            _tenantsService = new TenantService(false);
         }
         #region AddUser
         //When we supply null value as UserAddRequest, it should throw ArgumentNullException

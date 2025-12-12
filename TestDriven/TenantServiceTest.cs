@@ -9,7 +9,7 @@ namespace TestDriven
         private readonly TenantIService _tenantService;
         public TenantServiceTest()
         {
-            _tenantService = new TenantService();
+            _tenantService = new TenantService(false);
         }
         #region AddTenant
         //When TenantAddRequest is null, it should throw ArgumentNullException
