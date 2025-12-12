@@ -174,7 +174,7 @@ namespace Service
         }
         public List<UserResponse> ListAllUser()
         {
-            return _users.Select(user => user.ToPersonResponse()).ToList();
+            return _users.Select(temp => convertUserIntoUserResponse(temp)).ToList();
         }
 
         public UserResponse? GetUserByID(Guid? UserID)
@@ -194,10 +194,6 @@ namespace Service
         public List<UserResponse> SearchUserBy(string searchBy, string? SearchString)
         {
             List<UserResponse> result = ListAllUser();
-            foreach (var user in result)
-            {
-                user.TenantName = _tenantService.GetTenantByID(user.TenantID)?.TenantName;
-            }
             List<UserResponse> MatchedResult = result;
             if (string.IsNullOrEmpty(searchBy) || string.IsNullOrEmpty(SearchString))
                 return MatchedResult;

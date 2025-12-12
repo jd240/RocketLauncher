@@ -1,5 +1,6 @@
 ﻿using DataTransferObject;
 using DataTransferObject.DTO;
+using DataTransferObject.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 namespace RocketLauncher.Controllers
@@ -15,7 +16,7 @@ namespace RocketLauncher.Controllers
         }
         [Route("users/index")]
         [Route("/")]
-        public IActionResult Index(string searchBy, string? searchString)
+        public IActionResult Index(string searchBy, string? searchString, string sortBy = nameof(UserResponse.UserName), SortOrderOption sortOrder = SortOrderOption.ASC)
         {
             ViewBag.SearchFields = new Dictionary<string, string>()
             {
@@ -30,8 +31,11 @@ namespace RocketLauncher.Controllers
             List<UserResponse> userList = _userService.SearchUserBy(searchBy, searchString);
             ViewBag.CurrentSearchBy = searchBy;
             ViewBag.CurrentSearchString = searchString;
-
-            return View(userList);
+            //sort
+            ViewBag.CurrentSortBy = sortBy;
+            ViewBag.CurrentSortOrder = sortOrder;
+            List<UserResponse> SorteduserList = _userService.GetSortedUser(userList, sortBy, sortOrder);
+            return View(SorteduserList);
         }
     }
 }
