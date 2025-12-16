@@ -37,5 +37,14 @@ namespace RocketLauncher.Controllers
             List<UserResponse> SorteduserList = _userService.GetSortedUser(userList, sortBy, sortOrder);
             return View(SorteduserList);
         }
+        [Route("users/create")]
+        [HttpGet]
+        public IActionResult CreateUser()
+        {
+            List<TenantResponse> tenants = _tenantService.ListAllTenant();
+            ViewBag.Tenants = tenants;
+
+            return View();
+        }
     }
 }

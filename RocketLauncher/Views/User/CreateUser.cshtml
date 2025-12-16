@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Create User";
+}
+<a href="~/users/index" class = "link-hover"> Back to User List</a>
+<h2>Create User</h2>
+<div class="w-50">
+    <form action="~/users/create" method="post">
+        @*UserName*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="UserName" class="form-label">UserName</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="UserName" name="UserName" class="form-input"/>
+            </div>
+        </div>
+        @*FirstName*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="UserName" class="form-label">FirstName</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="FirstName" name="FirstName" class="form-input" />
+            </div>
+        </div>
+        @*LastName*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="LastName" class="form-label">LastName</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="LastName" name="LastName" class="form-input" />
+            </div>
+        </div>
+        @*Email*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="Email" class="form-label pt">Email</label>
+            </div>
+            <div class="flex-1">
+                <input type="email" id="Email" name="Email" class="form-input" />
+            </div>
+        </div>
+
+        @*DateOfBirth*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="DateOfBirth" class="form-label pt">Date of Birth</label>
+            </div>
+            <div class="flex-1">
+                <input type="date" id="DateOfBirth" name="DateOfBirth" class="form-input" />
+            </div>
+        </div>
+        @*Role*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label">Role</label>
+            </div>
+            <div class="flex-1">
+                <input type="radio" id="User" name="UserRole" value="User" />
+                <label for="User">User</label>
+                <input type="radio" id="Tenant" name="UserRole" value="Tenant" class="ml" />
+                <label for="Tenant">Tenant</label>
+            </div>
+        </div>
+
+        @*Associate with Tenant Question (Only for User role)*@
+        <div class="form-field flex" id="associateTenantQuestion" style="display: none;">
+            <div class="w-25">
+                <label class="form-label">Associate with Tenant?</label>
+            </div>
+            <div class="flex-1">
+                <input type="radio" id="AssociateYes" name="AssociateTenant" value="Yes" />
+                <label for="AssociateYes">Yes</label>
+                <input type="radio" id="AssociateNo" name="AssociateTenant" value="No" class="ml" />
+                <label for="AssociateNo">No</label>
+            </div>
+        </div>
+
+        @*Tenant Dropdown (Only shown when User selects Yes)*@
+        <div class="form-field flex" id="tenantDropdown" style="display: none;">
+            <div class="w-25">
+                <label class="form-label" for="TenantID">Tenant Name</label>
+            </div>
+            <div class="flex-1">
+                <select name="TenantID" id="TenantID" class="form-input">
+                    <option value="">Please Select</option>
+                    @foreach (TenantResponse tenant in ViewBag.Tenants)
+                    {
+                        <option value="@tenant.TenantID">@tenant.TenantName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        @*Address*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="Address" class="form-label pt">Address</label>
+            </div>
+            <div class="flex-1">
+                <textarea id="Address" name="Address" class="form-input"></textarea>
+            </div>
+        </div>
+
+        @*Submit*@
+        <div class="form-field flex">
+            <div class="w-25">
+            </div>
+            <div class="flex-1">
+                <button class="button button-green-back">Create</button>
+
+                @if (ViewBag.Errors != null)
+                {
+                    <div class="text-red ml">
+                        <ul>
+                            @foreach (string error in ViewBag.Errors)
+                            {
+                                <li class="ml">@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div> 
+
+<script>
+    // Get elements
+    const userRadio = document.getElementById('User');
+    const tenantRadio = document.getElementById('Tenant');
+    const associateTenantQuestion = document.getElementById('associateTenantQuestion');
+    const tenantDropdown = document.getElementById('tenantDropdown');
+    const associateYes = document.getElementById('AssociateYes');
+    const associateNo = document.getElementById('AssociateNo');
+
+    // Handle role selection
+    function handleRoleChange() {
+        if (userRadio.checked) {
+            // Show the associate question for User role
+            associateTenantQuestion.style.display = 'flex';
+            // Reset associate tenant selection
+            associateYes.checked = false;
+            associateNo.checked = false;
+            tenantDropdown.style.display = 'none';
+        } else if (tenantRadio.checked) {
+            // Hide both fields for Tenant role
+            associateTenantQuestion.style.display = 'none';
+            tenantDropdown.style.display = 'none';
+        }
+    }
+
+    // Handle associate tenant question
+    function handleAssociateChange() {
+        if (associateYes.checked) {
+            tenantDropdown.style.display = 'flex';
+        } else if (associateNo.checked) {
+            tenantDropdown.style.display = 'none';
+            // Clear dropdown selection
+            document.getElementById('TenantID').value = '';
+        }
+    }
+
+    // Add event listeners
+    userRadio.addEventListener('change', handleRoleChange);
+    tenantRadio.addEventListener('change', handleRoleChange);
+    associateYes.addEventListener('change', handleAssociateChange);
+    associateNo.addEventListener('change', handleAssociateChange);
+</script>
