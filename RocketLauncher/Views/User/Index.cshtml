@@ -185,6 +185,9 @@
                     <td>@user.DateOfBirth?.ToString("yyyy-MM-dd")</td>
                     <td>@user.Address</td>
                     <td>@user.TenantName</td>
+                    <td>
+                            <a asp-controller="User" asp-action="UpdateUser" asp-route-UserID="@user.UserID">Edit</a>
+                    </td>
                 </tr>
             }
         }

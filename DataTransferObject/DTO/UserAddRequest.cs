@@ -19,6 +19,7 @@ namespace DataTransferObject.DTO
         public string? Email { get; set; }
         public bool emailVerified { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        [Required(ErrorMessage = "Please Pick Your Role!")]
         public Role? UserRole { get; set; }
         public Guid? TenantID { get; set; }
         public string? Address { get; set; }

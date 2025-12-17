@@ -2,9 +2,11 @@
 using DataTransferObject.DTO;
 using DataTransferObject.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Reflection;
 namespace RocketLauncher.Controllers
 {
+    [Route("users")]
     public class UserController : Controller
     {
         private readonly UserIService _userService;
@@ -14,7 +16,7 @@ namespace RocketLauncher.Controllers
             _userService = userService;
             _tenantService = tenantService;
         }
-        [Route("users/index")]
+        [Route("index")]
         [Route("/")]
         public IActionResult Index(string searchBy, string? searchString, string sortBy = nameof(UserResponse.UserName), SortOrderOption sortOrder = SortOrderOption.ASC)
         {
@@ -37,7 +39,7 @@ namespace RocketLauncher.Controllers
             List<UserResponse> SorteduserList = _userService.GetSortedUser(userList, sortBy, sortOrder);
             return View(SorteduserList);
         }
-        [Route("users/create")]
+        [Route("create")]
         [HttpGet]
         public IActionResult CreateUser()
         {
@@ -45,6 +47,70 @@ namespace RocketLauncher.Controllers
             ViewBag.Tenants = tenants;
 
             return View();
+        }
+        [HttpPost]
+        [Route("create")]
+        public IActionResult CreateUser(UserAddRequest userAddRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                List<TenantResponse> tenants = _tenantService.ListAllTenant();
+                ViewBag.Tenants = tenants;
+
+                ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return View();
+            }
+
+            //call the service method
+            UserResponse userResponse = _userService.AddUser(userAddRequest);
+
+            //navigate to Index() action method (it makes another get request to "users/index"
+            return RedirectToAction("Index", "User");
+        }
+        [HttpGet]
+        [Route("update/{userID}")] //Eg: /persons/edit/1
+        public IActionResult UpdateUser(Guid userId)
+        {
+            UserResponse? userResponse = _userService.GetUserByID(userId);
+            if (userResponse == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            UserUpdateRequest userUpdateRequest = userResponse.toUserUpdateRequest();
+
+            List<TenantResponse> tenants = _tenantService.ListAllTenant();
+            ViewBag.Tenants = tenants.Select(temp =>
+            new SelectListItem() { Text = temp.TenantName, Value = temp.TenantID.ToString() });
+
+            return View(userUpdateRequest);
+        }
+
+        [HttpPost]
+        [Route("update/{userID}")]
+        public IActionResult UpdateUser(UserUpdateRequest userUpdateRequest)
+        {
+            UserResponse? userResponse = _userService.GetUserByID(userUpdateRequest.UserId);
+
+            if (userResponse == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            if (ModelState.IsValid)
+            {
+                UserResponse updatedUser = _userService.UpdateUser(userUpdateRequest);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                List<TenantResponse> tenants = _tenantService.ListAllTenant();
+                ViewBag.Tenants = tenants.Select(temp =>
+                new SelectListItem() { Text = temp.TenantName, Value = temp.TenantID.ToString() });
+
+                ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return View(userUpdateRequest);
+            }
         }
     }
 }
