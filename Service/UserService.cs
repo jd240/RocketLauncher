@@ -315,17 +315,19 @@ namespace Service
             if (request.UserRole.HasValue)
                 matchingUser.UserRole = request.UserRole.Value.ToString();
 
-            if (request.TenantID.HasValue)
-                matchingUser.TenantID = request.TenantID;
-
             if (!string.IsNullOrWhiteSpace(request.Address))
                 matchingUser.Address = request.Address;
             
             if (request.emailVerified.HasValue)
                 matchingUser.emailVerified = request.emailVerified.Value;
+            
+            if (request.TenantID.HasValue)
+                matchingUser.TenantID = request.TenantID;
+            else
+                matchingUser.TenantID = null;
 
 
-            return matchingUser.ToPersonResponse();
+                return matchingUser.ToPersonResponse();
         }
 
         public bool DeleteUser(Guid? UserID)

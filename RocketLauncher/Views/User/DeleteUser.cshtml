@@ -1,0 +1,72 @@
+﻿@model UserResponse
+
+@{
+    ViewBag.Title = "Delete User";
+}
+<a href="~/users/index" class = "link-hover"> Back to User List</a>
+<h2>Are you sure you want to delete the following user?</h2>
+<div class="w-50">
+    <form action="~/users/delete/@Model.UserID" method="post">
+        @*Hidden field for UserID*@
+        <input type="hidden" name="UserID" value="@Model.UserID" />
+        
+        @*UserName*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="UserName" class="form-label">UserName</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="UserName" name="UserName" class="form-input" value="@Model.UserName" disabled />
+            </div>
+        </div>
+        @*FirstName*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="FirstName" class="form-label">FirstName</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="FirstName" name="FirstName" class="form-input" value="@Model.FirstName" disabled />
+            </div>
+        </div>
+        @*LastName*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="LastName" class="form-label">LastName</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="LastName" name="LastName" class="form-input" value="@Model.LastName" disabled />
+            </div>
+        </div>
+        @*Email*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="Email" class="form-label pt">Email</label>
+            </div>
+            <div class="flex-1">
+                <input type="email" id="Email" name="Email" class="form-input" value="@Model.Email" disabled />
+            </div>
+        </div>
+
+        @*Submit*@
+        <div class="form-field flex">
+            <div class="w-25">
+            </div>
+            <div class="flex-1">
+                <button class="button button-red-back">Delete</button>
+
+                @if (ViewBag.Errors != null)
+                {
+                    <div class="text-red ml">
+                        <ul>
+                            @foreach (string error in ViewBag.Errors)
+                            {
+                                <li class="ml">@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div> 
+

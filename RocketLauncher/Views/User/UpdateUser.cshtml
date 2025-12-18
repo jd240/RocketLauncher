@@ -158,6 +158,7 @@
         } else if (tenantRadio.checked) {
             associateTenantQuestion.style.display = 'none';
             tenantDropdown.style.display = 'none';
+            tenantSelect.selectedIndex = 0;
         }
     }
 
@@ -168,10 +169,38 @@
         } else if (associateNo.checked) {
             tenantDropdown.style.display = 'none';
             document.getElementById('TenantID').value = '';
+            removeError();
+        }
+    }
+
+    function showError(message) {
+        removeError(); // Remove existing error first
+        const tenantSelect = document.getElementById('TenantID');
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'tenant-error';
+        errorDiv.className = 'text-red';
+        errorDiv.textContent = message;
+        tenantSelect.parentElement.appendChild(errorDiv);
+    }
+
+    function removeError() {
+        const existingError = document.getElementById('tenant-error');
+        if (existingError) {
+            existingError.remove();
         }
     }
 
     // Add event listeners
+    document.querySelector('form').addEventListener('submit', function(event) {
+        // Ensure TenantID is selected if associating with a tenant
+        const tenantSelect = document.getElementById('TenantID');
+        if (associateYes.checked && tenantSelect.value === '') {
+            event.preventDefault();
+            showError('Please select a tenant');
+            tenantSelect.focus();
+            return false;
+        }
+    });
     userRadio.addEventListener('change', handleRoleChange);
     tenantRadio.addEventListener('change', handleRoleChange);
     associateYes.addEventListener('change', handleAssociateChange);
@@ -179,4 +208,5 @@
 
     // Initialize on page load
     initializeFormState();
+
 </script>

@@ -1,6 +1,7 @@
 ﻿using DataTransferObject;
 using DataTransferObject.DTO;
 using DataTransferObject.Enums;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Reflection;
@@ -111,6 +112,23 @@ namespace RocketLauncher.Controllers
                 ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                 return View(userUpdateRequest);
             }
+        }
+        [HttpGet]
+        [Route("delete/{userID}")] //Eg: /persons/edit/1
+        public IActionResult DeleteUser(Guid userId)
+        {
+            UserResponse? userResponse = _userService.GetUserByID(userId);
+            return View(userResponse);
+        }
+
+        [HttpPost]
+        [Route("delete/{userID}")]
+        public IActionResult DeleteUser(UserUpdateRequest userUpdateRequest)
+        {
+            UserResponse? userResponse = _userService.GetUserByID(userUpdateRequest.UserId);
+            _userService.DeleteUser(userUpdateRequest.UserId);
+            return RedirectToAction("Index");
+
         }
     }
 }
