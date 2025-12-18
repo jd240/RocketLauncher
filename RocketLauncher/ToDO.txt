@@ -1,0 +1,3 @@
+﻿Seperate create User by role. User pick between regualar user and Tenant user at registration. 
+Depending on the choice, create the appropriate user type in the database with relevant fields.
+Add Tenant Update Code and Delete Code, and also add more fields to Tenant User like Company Name, Company Address, etc.

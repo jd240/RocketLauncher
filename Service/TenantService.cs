@@ -57,7 +57,7 @@ namespace Services
             //Validation: check for duplicated Name
             if (_tenants.Where(temp => temp.TenantName == TenantAddRequest.TenantName).Count() > 0)
             {
-                throw new ArgumentException("Given country name already exists");
+                throw new ArgumentException("Given Tenant name already exists");
             }
             tenant.TenantID = Guid.NewGuid();
             _tenants.Add(tenant);
