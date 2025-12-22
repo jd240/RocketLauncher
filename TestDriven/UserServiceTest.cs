@@ -49,7 +49,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2000-01-01"),
                 emailVerified = true,
-                TenantID = new Guid()
+                AssociatedTenantID = new Guid()
             };
             //Act
             Assert.Throws<ArgumentException>(() =>
@@ -87,7 +87,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2000-01-01"),
                 emailVerified = true,
-                TenantID = new Guid()
+                AssociatedTenantID = new Guid()
             };
 
             //Act
@@ -141,7 +141,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1999-01-01"),
                 emailVerified = true,
-                TenantID = tenant_response.TenantID
+                AssociatedTenantID = tenant_response.TenantID
             };
 
             UserResponse user_response_from_add = _userService.AddUser(user_Request);
@@ -171,7 +171,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             UserAddRequest user_Request_2 = new UserAddRequest()
             {
@@ -184,7 +184,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
-                TenantID = tenant_response_2.TenantID
+                AssociatedTenantID = tenant_response_2.TenantID
             };
             UserAddRequest user_Request_3 = new UserAddRequest()
             {
@@ -197,7 +197,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             List<UserAddRequest> user_requests = new List<UserAddRequest>()
             {
@@ -239,7 +239,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             UserAddRequest user_Request_2 = new UserAddRequest()
             {
@@ -252,7 +252,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
-                TenantID = tenant_response_2.TenantID
+                AssociatedTenantID = tenant_response_2.TenantID
             };
             UserAddRequest user_Request_3 = new UserAddRequest()
             {
@@ -265,7 +265,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             List<UserAddRequest> user_requests = new List<UserAddRequest>()
             {
@@ -305,7 +305,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             UserAddRequest user_Request_2 = new UserAddRequest()
             {
@@ -318,7 +318,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
-                TenantID = tenant_response_2.TenantID
+                AssociatedTenantID = tenant_response_2.TenantID
             };
             UserAddRequest user_Request_3 = new UserAddRequest()
             {
@@ -331,7 +331,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             List<UserAddRequest> user_requests = new List<UserAddRequest>()
             {
@@ -376,7 +376,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("1998-02-02"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             UserAddRequest user_Request_2 = new UserAddRequest()
             {
@@ -389,7 +389,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2004-04-04"),
                 emailVerified = true,
-                TenantID = tenant_response_2.TenantID
+                AssociatedTenantID = tenant_response_2.TenantID
             };
             UserAddRequest user_Request_3 = new UserAddRequest()
             {
@@ -402,7 +402,7 @@ namespace TestDriven
                 UserRole = DataTransferObject.Enums.Role.User,
                 DateOfBirth = DateTime.Parse("2001-11-08"),
                 emailVerified = true,
-                TenantID = tenant_response_1.TenantID
+                AssociatedTenantID = tenant_response_1.TenantID
             };
             List<UserAddRequest> user_requests = new List<UserAddRequest>()
             {
@@ -489,7 +489,7 @@ namespace TestDriven
                 UserName = "JohnW",
                 FirstName = "John",
                 LastName = "Wick",
-                TenantID = tenant_response_from_add.TenantID, 
+                AssociatedTenantID = tenant_response_from_add.TenantID, 
                 Address = "Abc road", 
                 DateOfBirth = DateTime.Parse("2000-01-01"), 
                 Email = "abc@example.com", 
@@ -526,7 +526,7 @@ namespace TestDriven
                 UserName = "JohnW",
                 FirstName = "John",
                 LastName = "Wick",
-                TenantID = tenant_response_from_add.TenantID,
+                AssociatedTenantID = tenant_response_from_add.TenantID,
                 Address = "Abc road",
                 DateOfBirth = DateTime.Parse("2000-01-01"),
                 Email = "abc@example.com",

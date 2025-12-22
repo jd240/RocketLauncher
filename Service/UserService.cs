@@ -17,7 +17,7 @@ namespace Service
         public UserService(bool Init = true) 
         {
             _users = new List<User>();
-            _tenantService = new TenantService(true);
+            _tenantService = new TenantService(false);
             if (Init)
             {
                 _users.AddRange(new List<User>()
@@ -28,7 +28,7 @@ namespace Service
                     UserName = "JohnW",
                     FirstName = "John",
                     LastName = "Wick",
-                    TenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
+                    AssociatedTenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
                     Address = "Abc road",
                     DateOfBirth = DateTime.Parse("2000-01-01"),
                     Email = "abc@example.com",
@@ -40,7 +40,7 @@ namespace Service
                     UserName = "SarahK",
                     FirstName = "Sarah",
                     LastName = "Klein",
-                    TenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
+                    AssociatedTenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
                     Address = "12 Maple Street",
                     DateOfBirth = DateTime.Parse("1995-06-14"),
                     Email = "sarah.klein@example.com",
@@ -53,7 +53,7 @@ namespace Service
                     UserName = "MarkT",
                     FirstName = "Mark",
                     LastName = "Thompson",
-                    TenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
+                    AssociatedTenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
                     Address = "88 King Road",
                     DateOfBirth = DateTime.Parse("1988-11-02"),
                     Email = "mark.thompson@example.com",
@@ -66,7 +66,7 @@ namespace Service
                     UserName = "EmilyR",
                     FirstName = "Emily",
                     LastName = "Reed",
-                    TenantID = Guid.Parse("1E83383A-8816-4DF8-A6D3-6C336CEF4CC4"),
+                    AssociatedTenantID = Guid.Parse("1E83383A-8816-4DF8-A6D3-6C336CEF4CC4"),
                     Address = "5 Oak Avenue",
                     DateOfBirth = DateTime.Parse("1999-03-27"),
                     Email = "emily.reed@example.com",
@@ -79,7 +79,7 @@ namespace Service
                     UserName = "DanielH",
                     FirstName = "Daniel",
                     LastName = "Harris",
-                    TenantID = Guid.Parse("1E83383A-8816-4DF8-A6D3-6C336CEF4CC4"),
+                    AssociatedTenantID = Guid.Parse("1E83383A-8816-4DF8-A6D3-6C336CEF4CC4"),
                     Address = "44 Sunset Blvd",
                     DateOfBirth = DateTime.Parse("1992-09-18"),
                     Email = "daniel.harris@example.com",
@@ -92,7 +92,7 @@ namespace Service
                     UserName = "OliviaM",
                     FirstName = "Olivia",
                     LastName = "Moore",
-                    TenantID = Guid.Parse("CBB21EA5-9C63-4E6E-9F02-37918E3BDBF2"),
+                    AssociatedTenantID = Guid.Parse("CBB21EA5-9C63-4E6E-9F02-37918E3BDBF2"),
                     Address = "77 River Lane",
                     DateOfBirth = DateTime.Parse("2001-12-05"),
                     Email = "olivia.moore@example.com",
@@ -105,7 +105,7 @@ namespace Service
                     UserName = "JamesL",
                     FirstName = "James",
                     LastName = "Lawson",
-                    TenantID = Guid.Parse("CBB21EA5-9C63-4E6E-9F02-37918E3BDBF2"),
+                    AssociatedTenantID = Guid.Parse("CBB21EA5-9C63-4E6E-9F02-37918E3BDBF2"),
                     Address = "19 Hillcrest Drive",
                     DateOfBirth = DateTime.Parse("1985-01-21"),
                     Email = "james.lawson@example.com",
@@ -118,7 +118,7 @@ namespace Service
                     UserName = "ChloeB",
                     FirstName = "Chloe",
                     LastName = "Brown",
-                    TenantID = Guid.Parse("2431659E-879F-4EEB-B172-81C6776B686B"),
+                    AssociatedTenantID = Guid.Parse("2431659E-879F-4EEB-B172-81C6776B686B"),
                     Address = "102 Garden Way",
                     DateOfBirth = DateTime.Parse("1997-07-09"),
                     Email = "chloe.brown@example.com",
@@ -131,7 +131,7 @@ namespace Service
                     UserName = "KevinP",
                     FirstName = "Kevin",
                     LastName = "Parker",
-                    TenantID = Guid.Parse("2431659E-879F-4EEB-B172-81C6776B686B"),
+                    AssociatedTenantID = Guid.Parse("2431659E-879F-4EEB-B172-81C6776B686B"),
                     Address = "60 Lake View Rd",
                     DateOfBirth = DateTime.Parse("1990-04-30"),
                     Email = "kevin.parker@example.com",
@@ -144,19 +144,65 @@ namespace Service
                     UserName = "LauraS",
                     FirstName = "Laura",
                     LastName = "Stevens",
-                    TenantID = Guid.Parse("427E3E9C-1254-48D0-B0C1-50FC4BB936C8"),
+                    AssociatedTenantID = Guid.Parse("427E3E9C-1254-48D0-B0C1-50FC4BB936C8"),
                     Address = "8 Cedar Court",
                     DateOfBirth = DateTime.Parse("1993-10-11"),
                     Email = "laura.stevens@example.com",
                     UserRole = "User",
                     emailVerified = false
-                } });
+                },
+                 new WhiteLabelTenant()
+                {
+                    UserID = Guid.Parse("6E50AA82-9D11-4C6C-8E14-86AC206D2A49"),
+                    TenantID = Guid.Parse("935AC7B5-7B7B-4367-9193-D298467994FD"),
+                    UserName = "ACounsult",
+                    TenantName = "Tenant A",
+                    UserRole = "Tenant"
+                },
+                new WhiteLabelTenant()
+                {
+                    UserID = Guid.Parse("D6E656D5-9F1A-4458-9F5E-0E641D0702DB"),
+                    TenantID = Guid.Parse("1E83383A-8816-4DF8-A6D3-6C336CEF4CC4"),
+                    UserName = "B law",
+                    TenantName = "Tenant B",
+                    UserRole = "Tenant"
+                },
+                new WhiteLabelTenant()
+                {
+                    UserID = Guid.Parse("03146D45-5859-44FD-856F-81BF6BA46C88"),
+                    TenantID = Guid.Parse("CBB21EA5-9C63-4E6E-9F02-37918E3BDBF2"),
+                    UserName = "C wholeSale",
+                    TenantName = "Tenant C",
+                    UserRole = "Tenant"
+                },
+                new WhiteLabelTenant()
+                {
+                    UserID = Guid.Parse("5D6A9517-211D-4A32-88C4-4FD2307781DF"),
+                    TenantID = Guid.Parse("2431659E-879F-4EEB-B172-81C6776B686B"),
+                    UserName = "D Web Dev",
+                    TenantName = "Tenant D",
+                    UserRole = "Tenant"
+                },
+                new WhiteLabelTenant()
+                {
+                    UserID = Guid.Parse("D4B3C794-A3BA-4274-8609-11B798B15790"),
+                    TenantID = Guid.Parse("427E3E9C-1254-48D0-B0C1-50FC4BB936C8"),
+                    UserName = "ElemtalCore",
+                    TenantName = "Tenant E",
+                    UserRole = "Tenant"
+                }
+                });
             }
         }
         private UserResponse convertUserIntoUserResponse(User user)
         {
             UserResponse userResponse = user.ToPersonResponse();
-            userResponse.TenantName = _tenantService.GetTenantByID(user.TenantID)?.TenantName;
+            userResponse.AssociatedTenantName = GetUserByTenantID(user.AssociatedTenantID)?.TenantName;
+            return userResponse;
+        }
+        private UserResponse convertTenantIntoUserResponse(WhiteLabelTenant user)
+        {
+            UserResponse userResponse = user.ToPersonResponse2();
             return userResponse;
         }
         public UserResponse AddUser(UserAddRequest? request)
@@ -166,15 +212,36 @@ namespace Service
                throw new ArgumentNullException(nameof(request), "UserAddRequest cannot be null.");
             }
             ValidationHelper.ModelValidation(request);
-            User user = request.toUser();
-            user.UserID = Guid.NewGuid();
-            _users.Add(user);
-            return convertUserIntoUserResponse(user);
-
+            if (request.UserRole == Role.User)
+            {
+                User user = request.toUser();
+                user.UserID = Guid.NewGuid();
+                _users.Add(user);
+                return convertUserIntoUserResponse(user);
+            }
+            else
+            {
+                WhiteLabelTenant tenant = request.toTenant();
+                tenant.UserID = Guid.NewGuid();
+                tenant.TenantID = Guid.NewGuid();
+                _users.Add(tenant);
+                return convertTenantIntoUserResponse(tenant);
+            }
         }
         public List<UserResponse> ListAllUser()
         {
-            return _users.Select(temp => convertUserIntoUserResponse(temp)).ToList();
+            return _users.Select(temp => 
+                (temp.UserRole == Role.Tenant.ToString() || temp is WhiteLabelTenant) 
+                    ? convertTenantIntoUserResponse(temp as WhiteLabelTenant)
+                    : convertUserIntoUserResponse(temp)
+            ).ToList();
+        }
+        public List<UserResponse> ListAllTenantUsers()
+        {
+            return _users
+                .Where(temp => temp.UserRole == "Tenant")
+                .Select(temp => convertTenantIntoUserResponse((WhiteLabelTenant)temp))
+                .ToList();
         }
 
         public UserResponse? GetUserByID(Guid? UserID)
@@ -183,12 +250,27 @@ namespace Service
             if (UserID == null)
                 return null;
 
-            User? user_response_from_list = _users.FirstOrDefault(temp => temp.UserID == UserID);
+            var user_response_from_list = _users.FirstOrDefault(temp => temp.UserID == UserID);
 
             if (user_response_from_list == null)
                 return null;
 
+            if (user_response_from_list.UserRole == "Tenant")
+            {
+                WhiteLabelTenant returnResult = (WhiteLabelTenant)user_response_from_list;
+                return returnResult.ToPersonResponse2();
+            }
             return user_response_from_list.ToPersonResponse();
+        }
+        public UserResponse? GetUserByTenantID(Guid? TenantID)
+        {
+            if (TenantID == null)
+                return null;
+
+            var tenant = _users.OfType<WhiteLabelTenant>()
+                               .FirstOrDefault(temp => temp.TenantID == TenantID);
+
+            return tenant?.ToPersonResponse2();
         }
 
         public List<UserResponse> SearchUserBy(string searchBy, string? SearchString)
@@ -229,10 +311,10 @@ namespace Service
                     temp.UserRole.Contains(SearchString, StringComparison.OrdinalIgnoreCase) :
                     true)).ToList();
                     break;
-                case nameof(UserResponse.TenantName):
+                case nameof(UserResponse.AssociatedTenantName):
                     MatchedResult = result.Where(temp =>
-                    (!string.IsNullOrEmpty(temp.TenantName) ?
-                    temp.TenantName.Contains(SearchString, StringComparison.OrdinalIgnoreCase) :
+                    (!string.IsNullOrEmpty(temp.AssociatedTenantName) ?
+                    temp.AssociatedTenantName.Contains(SearchString, StringComparison.OrdinalIgnoreCase) :
                     true)).ToList();
                     break;
                 case nameof(UserResponse.Address):
@@ -283,51 +365,69 @@ namespace Service
         public UserResponse UpdateUser(UserUpdateRequest? request)
         {
             if (request == null)
-                throw new ArgumentNullException(nameof(User));
+                throw new ArgumentNullException(nameof(request));
 
-            //validation
+            // Validation
             ValidationHelper.ModelValidation(request);
 
-            //get matching person object to update
-            User? matchingUser = _users.FirstOrDefault(temp => temp.UserID == request.UserId);
-            if (matchingUser == null)
+            // Get matching user object to update based on role
+            if (request.UserRole == Role.Tenant)
             {
-                throw new ArgumentException("Given person id doesn't exist");
+                WhiteLabelTenant? matchingTenant = _users.FirstOrDefault(temp => temp.UserID == request.UserId) as WhiteLabelTenant;
+
+                if (matchingTenant == null)
+                {
+                    throw new ArgumentException("Given id doesn't exist");
+                }
+
+                // Update tenant-specific details
+                UpdateCommonFields(matchingTenant, request);
+
+                // Tenant-specific properties
+                if (!string.IsNullOrWhiteSpace(request.TenantName))
+                    matchingTenant.TenantName = request.TenantName;
+
+                return matchingTenant.ToPersonResponse2();
             }
-
-            //update all details
-            // Only update if supplied
-            if (!string.IsNullOrWhiteSpace(request.UserName))
-                matchingUser.UserName = request.UserName;
-
-            if (!string.IsNullOrWhiteSpace(request.FirstName))
-                matchingUser.FirstName = request.FirstName;
-
-            if (!string.IsNullOrWhiteSpace(request.LastName))
-                matchingUser.LastName = request.LastName;
-
-            if (!string.IsNullOrWhiteSpace(request.Email))
-                matchingUser.Email = request.Email;
-
-            if (request.DateOfBirth.HasValue)
-                matchingUser.DateOfBirth = request.DateOfBirth;
-
-            if (request.UserRole.HasValue)
-                matchingUser.UserRole = request.UserRole.Value.ToString();
-
-            if (!string.IsNullOrWhiteSpace(request.Address))
-                matchingUser.Address = request.Address;
-            
-            if (request.emailVerified.HasValue)
-                matchingUser.emailVerified = request.emailVerified.Value;
-            
-            if (request.TenantID.HasValue)
-                matchingUser.TenantID = request.TenantID;
             else
-                matchingUser.TenantID = null;
+            {
+                User? matchingUser = _users.FirstOrDefault(temp => temp.UserID == request.UserId);
 
+                if (matchingUser == null)
+                {
+                    throw new ArgumentException("Given id doesn't exist");
+                }
+
+                // Update user details
+                UpdateCommonFields(matchingUser, request);
 
                 return matchingUser.ToPersonResponse();
+            }
+        }
+
+        private void UpdateCommonFields(User user, UserUpdateRequest request)
+        {
+            if (!string.IsNullOrWhiteSpace(request.UserName))
+                user.UserName = request.UserName;
+            if (!string.IsNullOrWhiteSpace(request.FirstName))
+                user.FirstName = request.FirstName;
+            if (!string.IsNullOrWhiteSpace(request.LastName))
+                user.LastName = request.LastName;
+            if (!string.IsNullOrWhiteSpace(request.Email))
+                user.Email = request.Email;
+            if (request.DateOfBirth.HasValue)
+                user.DateOfBirth = request.DateOfBirth;
+            if (request.UserRole.HasValue)
+                user.UserRole = request.UserRole.Value.ToString();
+            if (!string.IsNullOrWhiteSpace(request.Address))
+                user.Address = request.Address;
+            if (request.emailVerified.HasValue)
+                user.emailVerified = request.emailVerified.Value;
+
+            if (request.AssociatedTenantID.HasValue)
+                user.AssociatedTenantID = request.AssociatedTenantID;
+            else
+                user.AssociatedTenantID = null;
         }
 
         public bool DeleteUser(Guid? UserID)

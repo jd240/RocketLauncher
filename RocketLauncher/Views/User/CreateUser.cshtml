@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Create User";
 }
-<a href="~/users/index" class = "link-hover"> Back to User List</a>
+<a href="~/users/index" class="link-hover"> Back to User List</a>
 <h2>Create User</h2>
 <div class="w-50">
     <form action="~/users/create" method="post">
@@ -11,13 +11,13 @@
                 <label for="UserName" class="form-label">UserName</label>
             </div>
             <div class="flex-1">
-                <input type="text" id="UserName" name="UserName" class="form-input"/>
+                <input type="text" id="UserName" name="UserName" class="form-input" />
             </div>
         </div>
         @*FirstName*@
         <div class="form-field flex">
             <div class="w-25">
-                <label for="UserName" class="form-label">FirstName</label>
+                <label for="FirstName" class="form-label">FirstName</label>
             </div>
             <div class="flex-1">
                 <input type="text" id="FirstName" name="FirstName" class="form-input" />
@@ -64,6 +64,16 @@
             </div>
         </div>
 
+        @*Tenant Name Input (Only for Tenant role)*@
+        <div class="form-field flex" id="tenantNameInput" style="display: none;">
+            <div class="w-25">
+                <label for="TenantName" class="form-label">Tenant Name</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="TenantName" name="TenantName" class="form-input" />
+            </div>
+        </div>
+
         @*Associate with Tenant Question (Only for User role)*@
         <div class="form-field flex" id="associateTenantQuestion" style="display: none;">
             <div class="w-25">
@@ -80,12 +90,12 @@
         @*Tenant Dropdown (Only shown when User selects Yes)*@
         <div class="form-field flex" id="tenantDropdown" style="display: none;">
             <div class="w-25">
-                <label class="form-label" for="TenantID">Tenant Name</label>
+                <label class="form-label" for="TenantID">Select Tenant</label>
             </div>
             <div class="flex-1">
                 <select name="TenantID" id="TenantID" class="form-input">
                     <option value="">Please Select</option>
-                    @foreach (TenantResponse tenant in ViewBag.Tenants)
+                    @foreach (UserResponse tenant in ViewBag.Tenants)
                     {
                         <option value="@tenant.TenantID">@tenant.TenantName</option>
                     }
@@ -123,12 +133,13 @@
             </div>
         </div>
     </form>
-</div> 
+</div>
 
 <script>
     // Get elements
     const userRadio = document.getElementById('User');
     const tenantRadio = document.getElementById('Tenant');
+    const tenantNameInput = document.getElementById('tenantNameInput');
     const associateTenantQuestion = document.getElementById('associateTenantQuestion');
     const tenantDropdown = document.getElementById('tenantDropdown');
     const associateYes = document.getElementById('AssociateYes');
@@ -138,15 +149,20 @@
     function handleRoleChange() {
         if (userRadio.checked) {
             // Show the associate question for User role
+            tenantNameInput.style.display = 'none';
+            document.getElementById('TenantName').value = ''; // Clear tenant name
             associateTenantQuestion.style.display = 'flex';
             // Reset associate tenant selection
             associateYes.checked = false;
             associateNo.checked = false;
             tenantDropdown.style.display = 'none';
         } else if (tenantRadio.checked) {
-            // Hide both fields for Tenant role
+            // Show tenant name input for Tenant role
+            tenantNameInput.style.display = 'flex';
+            // Hide user-specific fields
             associateTenantQuestion.style.display = 'none';
             tenantDropdown.style.display = 'none';
+            document.getElementById('TenantID').value = ''; // Clear tenant selection
         }
     }
 

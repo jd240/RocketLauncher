@@ -13,7 +13,7 @@ namespace Entities
         public DateTime? DateOfBirth { get; set; }
         public string? UserRole { get; set; }
         public string? Address { get; set; }
-        public Guid? TenantID { get; set; }
+        public Guid? AssociatedTenantID { get; set; }
 
     }
 }

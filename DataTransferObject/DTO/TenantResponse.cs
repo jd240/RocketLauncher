@@ -33,7 +33,7 @@ namespace DataTransferObject.DTO
     }
     public static class TenantExtensions
     {
-        public static TenantResponse ToTenantResponse(this WhiteLabelTenant Tenant)
+        public static TenantResponse ToTenantResponse2(this WhiteLabelTenant Tenant)
         {
             return new TenantResponse() { TenantID = Tenant.TenantID, TenantName = Tenant.TenantName };
         }

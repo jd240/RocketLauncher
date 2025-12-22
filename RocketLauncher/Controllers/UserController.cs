@@ -26,7 +26,7 @@ namespace RocketLauncher.Controllers
                 { nameof(UserResponse.UserName), "User Name" },
                 { nameof(UserResponse.FirstName), "First Name" },
                 { nameof(UserResponse.LastName), "Last Name" },
-                { nameof(UserResponse.TenantName), "Tenant Name" },
+                { nameof(UserResponse.AssociatedTenantName), "Tenant Name" },
                 { nameof(UserResponse.Email), "Email" },
                 { nameof(UserResponse.UserRole), "Role" }
             }
@@ -44,9 +44,8 @@ namespace RocketLauncher.Controllers
         [HttpGet]
         public IActionResult CreateUser()
         {
-            List<TenantResponse> tenants = _tenantService.ListAllTenant();
+            List<UserResponse> tenants = _userService.ListAllTenantUsers();
             ViewBag.Tenants = tenants;
-
             return View();
         }
         [HttpPost]
@@ -55,9 +54,8 @@ namespace RocketLauncher.Controllers
         {
             if (!ModelState.IsValid)
             {
-                List<TenantResponse> tenants = _tenantService.ListAllTenant();
+                List<UserResponse> tenants = _userService.ListAllTenantUsers();
                 ViewBag.Tenants = tenants;
-
                 ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                 return View();
             }
@@ -80,7 +78,7 @@ namespace RocketLauncher.Controllers
 
             UserUpdateRequest userUpdateRequest = userResponse.toUserUpdateRequest();
 
-            List<TenantResponse> tenants = _tenantService.ListAllTenant();
+            List<UserResponse> tenants = _userService.ListAllTenantUsers();
             ViewBag.Tenants = tenants.Select(temp =>
             new SelectListItem() { Text = temp.TenantName, Value = temp.TenantID.ToString() });
 
@@ -105,7 +103,7 @@ namespace RocketLauncher.Controllers
             }
             else
             {
-                List<TenantResponse> tenants = _tenantService.ListAllTenant();
+                List<UserResponse> tenants = _userService.ListAllTenantUsers();
                 ViewBag.Tenants = tenants.Select(temp =>
                 new SelectListItem() { Text = temp.TenantName, Value = temp.TenantID.ToString() });
 

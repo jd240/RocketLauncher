@@ -10,9 +10,8 @@ namespace DataTransferObject.DTO
     {
         [Required (ErrorMessage = "UserName Must Not Be Blanked!")]
         public string? UserName { get; set; }
-        [Required(ErrorMessage = "First Name Must Not Be Blanked!")]
         public string? FirstName { get; set; }
-        [Required(ErrorMessage = "Last Name Must Not Be Blanked!")]
+        public string? TenantName { get; set; }
         public string? LastName { get; set; }
         [Required(ErrorMessage = "Email Must Not Be Blanked!")]
         [EmailAddress(ErrorMessage = "The Provided Email Address was not valid!")]
@@ -21,12 +20,24 @@ namespace DataTransferObject.DTO
         public DateTime? DateOfBirth { get; set; }
         [Required(ErrorMessage = "Please Pick Your Role!")]
         public Role? UserRole { get; set; }
-        public Guid? TenantID { get; set; }
+        public Guid? AssociatedTenantID { get; set; }
         public string? Address { get; set; }
         public User toUser()
         {
             return new User() { UserName = UserName, FirstName = FirstName, LastName = LastName, Email = Email, emailVerified = emailVerified, 
-                DateOfBirth = DateOfBirth, UserRole = UserRole.ToString(), Address = Address, TenantID = TenantID};
+                DateOfBirth = DateOfBirth, UserRole = UserRole.ToString(), Address = Address, AssociatedTenantID = AssociatedTenantID};
+        }
+        public WhiteLabelTenant toTenant()
+        {
+            return new WhiteLabelTenant()
+            {
+                UserName = UserName,
+                TenantName = TenantName,
+                Email = Email,
+                emailVerified = emailVerified,
+                UserRole = UserRole.ToString(),
+                Address = Address
+            };
         }
     }
 }

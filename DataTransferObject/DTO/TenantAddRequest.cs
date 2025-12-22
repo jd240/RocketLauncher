@@ -10,7 +10,7 @@ namespace DataTransferObject.DTO
         public string? TenantName { get; set; }
         public WhiteLabelTenant ToTenant()
         {
-            return new WhiteLabelTenant() { TenantName = TenantName };
+            return new WhiteLabelTenant() { TenantName = TenantName};
         }
     }
 }

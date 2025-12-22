@@ -10,16 +10,18 @@ namespace DataTransferObject.DTO
     public class UserResponse
     {
         public Guid UserID { get; set; }
+        public Guid? TenantID { get; set; }
         public string? UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? TenantName { get; set; }
         public string? Email { get; set; }
         public bool? emailVerified { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? UserRole { get; set; }
-        public Guid? TenantID { get; set; }
+        public Guid? AssociatedTenantID { get; set; }
         public string? Address { get; set; }
-        public string? TenantName { get; set; }
+        public string? AssociatedTenantName { get; set; }
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;
@@ -29,7 +31,7 @@ namespace DataTransferObject.DTO
             UserResponse person = (UserResponse)obj;
             return UserID == person.UserID && UserName == person.UserName && FirstName == person.FirstName && LastName == person.LastName 
                 && Email == person.Email && emailVerified == person.emailVerified && DateOfBirth == person.DateOfBirth && UserRole == person.UserRole 
-                && Address == person.Address && TenantID == person.TenantID;
+                && Address == person.Address && AssociatedTenantID == person.AssociatedTenantID;
         }
 
         public override int GetHashCode()
@@ -41,15 +43,17 @@ namespace DataTransferObject.DTO
             return new UserUpdateRequest()
             {
                 UserId = UserID,
+                TenantID = TenantID,
                 UserName = UserName,
                 FirstName = FirstName,
                 LastName = LastName,
+                TenantName = TenantName,
                 Email = Email,
                 emailVerified = emailVerified,
                 DateOfBirth = DateOfBirth,
                 UserRole = Enum.Parse<Role>(UserRole, true),
                 Address = Address,
-                TenantID = TenantID
+                AssociatedTenantID = AssociatedTenantID
             };
         }
     }
@@ -75,7 +79,21 @@ namespace DataTransferObject.DTO
                 DateOfBirth = person.DateOfBirth,
                 UserRole = person.UserRole,
                 Address = person.Address,
-                TenantID = person.TenantID
+                AssociatedTenantID = person.AssociatedTenantID
+            };
+        }
+        public static UserResponse ToPersonResponse2(this WhiteLabelTenant person)
+        {
+            return new UserResponse()
+            {
+                UserID = person.UserID,
+                TenantID = person.TenantID,
+                UserName = person.UserName,
+                TenantName = person.TenantName,
+                Email = person.Email,
+                emailVerified = person.emailVerified,
+                UserRole = person.UserRole,
+                Address = person.Address
             };
         }
     }

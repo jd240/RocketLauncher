@@ -12,5 +12,6 @@ namespace DataTransferObject
         UserResponse? GetUserByID(Guid? UserID);
         List<UserResponse> SearchUserBy (string searchBy, string? SearchString);
         List<UserResponse> GetSortedUser (List<UserResponse> allusers, string SortBy, SortOrderOption sortorder);
+        List<UserResponse> ListAllTenantUsers();
     }
 }

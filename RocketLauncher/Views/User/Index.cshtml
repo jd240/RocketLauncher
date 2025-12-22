@@ -59,7 +59,28 @@
                 <th>
                         User ID
                 </th>
-
+                <th>
+                    <a asp-controller="User"
+                       asp-action="Index"
+                       asp-route-searchBy="@currentSearchBy"
+                       asp-route-searchString="@currentSearchString"
+                       asp-route-sortBy="@nameof(UserResponse.UserRole)"
+                       asp-route-sortOrder="@NextOrder(nameof(UserResponse.UserRole))">
+                        Role
+                    </a>
+                    <i class="fa-solid @SortIcon(nameof(UserResponse.UserRole))"></i>
+                </th>
+                <th>
+                    <a asp-controller="User"
+                       asp-action="Index"
+                       asp-route-searchBy="@currentSearchBy"
+                       asp-route-searchString="@currentSearchString"
+                       asp-route-sortBy="@nameof(UserResponse.AssociatedTenantName)"
+                       asp-route-sortOrder="@NextOrder(nameof(UserResponse.AssociatedTenantName))">
+                        Associated Tenant
+                    </a>
+                    <i class="fa-solid @SortIcon(nameof(UserResponse.AssociatedTenantName))"></i>
+                </th>
                 <th>
                     <a asp-controller="User"
                        asp-action="Index"
@@ -113,18 +134,6 @@
                        asp-action="Index"
                        asp-route-searchBy="@currentSearchBy"
                        asp-route-searchString="@currentSearchString"
-                       asp-route-sortBy="@nameof(UserResponse.UserRole)"
-                       asp-route-sortOrder="@NextOrder(nameof(UserResponse.UserRole))">
-                        Role
-                    </a>
-                    <i class="fa-solid @SortIcon(nameof(UserResponse.UserRole))"></i>
-                </th>
-
-                <th>
-                    <a asp-controller="User"
-                       asp-action="Index"
-                       asp-route-searchBy="@currentSearchBy"
-                       asp-route-searchString="@currentSearchString"
                        asp-route-sortBy="@nameof(UserResponse.emailVerified)"
                        asp-route-sortOrder="@NextOrder(nameof(UserResponse.emailVerified))">
                         Email Verified
@@ -155,18 +164,6 @@
                     </a>
                     <i class="fa-solid @SortIcon(nameof(UserResponse.Address))"></i>
                 </th>
-
-                <th>
-                    <a asp-controller="User"
-                       asp-action="Index"
-                       asp-route-searchBy="@currentSearchBy"
-                       asp-route-searchString="@currentSearchString"
-                       asp-route-sortBy="@nameof(UserResponse.TenantName)"
-                       asp-route-sortOrder="@NextOrder(nameof(UserResponse.TenantName))">
-                        Tenant Name
-                    </a>
-                    <i class="fa-solid @SortIcon(nameof(UserResponse.TenantName))"></i>
-                </th>
             </tr>
         </thead>
     <tbody>
@@ -176,15 +173,15 @@
             {
                 <tr>
                     <td>@user.UserID</td>
+                    <td>@user.UserRole</td>
+                    <td>@user.AssociatedTenantName</td>
                     <td>@user.UserName</td>
                     <td>@user.FirstName</td>
                     <td>@user.LastName</td>
                     <td>@user.Email</td>
-                    <td>@user.UserRole</td>
                     <td>@(user.emailVerified == true ? "Yes" : "No")</td>
                     <td>@user.DateOfBirth?.ToString("yyyy-MM-dd")</td>
                     <td>@user.Address</td>
-                    <td>@user.TenantName</td>
                     <td>
                             <a asp-controller="User" asp-action="UpdateUser" asp-route-UserID="@user.UserID">Edit</a>
                     </td>

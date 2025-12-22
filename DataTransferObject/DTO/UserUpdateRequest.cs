@@ -10,15 +10,17 @@ namespace DataTransferObject.DTO
     {
         [Required (ErrorMessage = "Please Supply the User ID you wish to update")]
         public Guid UserId { get; set; }
+        public Guid? TenantID { get; set; }
         public string? UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? TenantName { get; set; }
         [EmailAddress(ErrorMessage = "The Provided Email Address was not valid!")]
         public string? Email { get; set; }
         public bool? emailVerified { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public Role? UserRole { get; set; }
-        public Guid? TenantID { get; set; }
+        public Guid? AssociatedTenantID { get; set; }
         public string? Address { get; set; }
         public User toUser()
         {
@@ -33,7 +35,21 @@ namespace DataTransferObject.DTO
                 DateOfBirth = DateOfBirth,
                 UserRole = UserRole.ToString(),
                 Address = Address,
-                TenantID = TenantID
+                AssociatedTenantID = AssociatedTenantID
+            };
+        }
+        public WhiteLabelTenant toTenant()
+        {
+            return new WhiteLabelTenant()
+            {
+                UserName = UserName,
+                UserID = UserId,
+                TenantID = (Guid)TenantID,
+                TenantName = TenantName,
+                Email = Email,
+                emailVerified = emailVerified,
+                UserRole = UserRole.ToString(),
+                Address = Address
             };
         }
     }
