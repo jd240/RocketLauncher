@@ -1,3 +1,3 @@
-﻿Seperate create User by role. User pick between regualar user and Tenant user at registration. 
-Depending on the choice, create the appropriate user type in the database with relevant fields.
-Add Tenant Update Code and Delete Code, and also add more fields to Tenant User like Company Name, Company Address, etc.
+﻿Add Question and Answer DTO.
+Idea: Store a question bank, and have a view that fetch questions based on what module the user is doing. THis allow for a single view to display many different questions based on context.
+Functionality: Add Question and Answer, Edit Question and Answer, Delete Question and Answer, View a user's Answers to question.
