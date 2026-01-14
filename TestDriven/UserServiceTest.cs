@@ -17,7 +17,7 @@ namespace TestDriven
         private readonly TenantIService _tenantsService;
         public UserServiceTest()
         {
-            _userService = new UserService(false);
+            //_userService = new UserService(false);
             _tenantsService = new TenantService(false);
         }
         #region AddUser

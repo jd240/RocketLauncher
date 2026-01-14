@@ -11,21 +11,12 @@
         <input type="hidden" name="UserID" value="@Model.UserId" />
 
         @*UserName*@
-        <div class="form-field flex">
+       <div class="form-field flex">
             <div class="w-25">
                 <label for="UserName" class="form-label">UserName</label>
             </div>
             <div class="flex-1">
-                <input type="text" id="UserName" name="UserName" class="form-input" value="@Model.UserName" readonly />
-            </div>
-        </div>
-        @*FirstName*@
-        <div class="form-field flex">
-            <div class="w-25">
-                <label for="FirstName" class="form-label">FirstName</label>
-            </div>
-            <div class="flex-1">
-                <input type="text" id="FirstName" name="FirstName" class="form-input" value="@Model.FirstName" />
+                <input type="text" id="UserName" name="UserName" class="form-input" value="@Model.UserName" />
             </div>
         </div>
         @*LastName*@
@@ -56,16 +47,33 @@
                 <input type="date" id="DateOfBirth" name="DateOfBirth" class="form-input" value="@Model.DateOfBirth?.ToString("yyyy-MM-dd")" />
             </div>
         </div>
-        @*Role*@
+        @* Role *@
         <div class="form-field flex">
             <div class="w-25">
                 <label class="form-label">Role</label>
             </div>
             <div class="flex-1">
-                <input type="radio" id="User" name="UserRole" value="User" @(Model.UserRole == DataTransferObject.Enums.Role.User ? "checked" : "") />
+                <input type="radio"
+                       id="User"
+                       name="UserRole_Display"
+                       value="User"
+                       disabled
+                       @(Model.UserRole == DataTransferObject.Enums.Role.User ? "checked" : "") />
                 <label for="User">User</label>
-                <input type="radio" id="Tenant" name="UserRole" value="Tenant" class="ml" @(Model.UserRole == DataTransferObject.Enums.Role.Tenant ? "checked" : "") />
+
+                <input type="radio"
+                       id="Tenant"
+                       name="UserRole_Display"
+                       value="Tenant"
+                       disabled
+                       class="ml"
+                       @(Model.UserRole == DataTransferObject.Enums.Role.Tenant ? "checked" : "") />
                 <label for="Tenant">Tenant</label>
+
+                @* actual value that will post *@
+                <input type="hidden"
+                       name="UserRole"
+                       value="@Model.UserRole" />
             </div>
         </div>
 

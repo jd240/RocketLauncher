@@ -38,19 +38,5 @@ namespace DataTransferObject.DTO
                 AssociatedTenantID = AssociatedTenantID
             };
         }
-        public WhiteLabelTenant toTenant()
-        {
-            return new WhiteLabelTenant()
-            {
-                UserName = UserName,
-                UserID = UserId,
-                TenantID = (Guid)TenantID,
-                TenantName = TenantName,
-                Email = Email,
-                emailVerified = emailVerified,
-                UserRole = UserRole.ToString(),
-                Address = Address
-            };
-        }
     }
 }

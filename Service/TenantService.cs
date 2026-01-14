@@ -61,12 +61,12 @@ namespace Services
             }
             tenant.TenantID = Guid.NewGuid();
             _tenants.Add(tenant);
-            return tenant.ToTenantResponse2();
+            return tenant.ToTenantResponse();
         }
 
         public List<TenantResponse> ListAllTenant()
         {
-            return _tenants.Select(tenant => tenant.ToTenantResponse2()).ToList();
+            return _tenants.Select(tenant => tenant.ToTenantResponse()).ToList();
         }
         public TenantResponse? GetTenantByID(Guid? TenantID)
         {
@@ -78,7 +78,7 @@ namespace Services
             if (tenant_response_from_list == null)
                 return null;
 
-            return tenant_response_from_list.ToTenantResponse2();
+            return tenant_response_from_list.ToTenantResponse();
         }
 
     }

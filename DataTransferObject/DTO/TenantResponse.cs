@@ -1,41 +1,61 @@
 ﻿using Entities;
 using System;
-
 namespace DataTransferObject.DTO
 {
     /// <summary>
-    /// DTO class that is used as return type for most of TenantService methods
-    /// </summary
+    /// DTO returned by TenantService methods.
+    /// Represents a white-label tenant (organisation),
+    /// </summary>
     public class TenantResponse
     {
         public Guid TenantID { get; set; }
-        public string? TenantName { get; set; }
+
+        // Organisation identity
+        public string TenantName { get; set; } = null!;
+        public string Slug { get; set; } = null!;
+
+        // Business contact (not login)
+        public string? ContactEmail { get; set; }
+
+        // Business address
+        public string? AddressLine1 { get; set; }
+
+        // Tenant lifecycle
+        public bool IsActive { get; set; }
+
+        public DateTime CreatedAtUtc { get; set; }
+
+        // Equality: tenants are uniquely identified by TenantID
         public override bool Equals(object? obj)
         {
-            if (obj == null)
-            {
+            if (obj is not TenantResponse other)
                 return false;
-            }
 
-            if (obj.GetType() != typeof(TenantResponse))
-            {
-                return false;
-            }
-            TenantResponse tenant_to_compare = (TenantResponse)obj;
-
-            return TenantID == tenant_to_compare.TenantID && TenantName == tenant_to_compare.TenantName;
+            return TenantID == other.TenantID;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return TenantID.GetHashCode();
         }
     }
+}
+namespace DataTransferObject.DTO
+{
     public static class TenantExtensions
     {
-        public static TenantResponse ToTenantResponse2(this WhiteLabelTenant Tenant)
+        public static TenantResponse ToTenantResponse(this WhiteLabelTenant tenant)
         {
-            return new TenantResponse() { TenantID = Tenant.TenantID, TenantName = Tenant.TenantName };
+            return new TenantResponse
+            {
+                TenantID = tenant.TenantID,
+                TenantName = tenant.TenantName,
+                Slug = tenant.Slug,
+                ContactEmail = tenant.ContactEmail,
+                AddressLine1 = tenant.AddressLine1,
+                IsActive = tenant.IsActive,
+                CreatedAtUtc = tenant.CreatedAtUtc
+            };
         }
     }
 }

@@ -82,19 +82,5 @@ namespace DataTransferObject.DTO
                 AssociatedTenantID = person.AssociatedTenantID
             };
         }
-        public static UserResponse ToPersonResponse2(this WhiteLabelTenant person)
-        {
-            return new UserResponse()
-            {
-                UserID = person.UserID,
-                TenantID = person.TenantID,
-                UserName = person.UserName,
-                TenantName = person.TenantName,
-                Email = person.Email,
-                emailVerified = person.emailVerified,
-                UserRole = person.UserRole,
-                Address = person.Address
-            };
-        }
     }
 }

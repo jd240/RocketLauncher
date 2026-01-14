@@ -27,17 +27,5 @@ namespace DataTransferObject.DTO
             return new User() { UserName = UserName, FirstName = FirstName, LastName = LastName, Email = Email, emailVerified = emailVerified, 
                 DateOfBirth = DateOfBirth, UserRole = UserRole.ToString(), Address = Address, AssociatedTenantID = AssociatedTenantID};
         }
-        public WhiteLabelTenant toTenant()
-        {
-            return new WhiteLabelTenant()
-            {
-                UserName = UserName,
-                TenantName = TenantName,
-                Email = Email,
-                emailVerified = emailVerified,
-                UserRole = UserRole.ToString(),
-                Address = Address
-            };
-        }
     }
 }

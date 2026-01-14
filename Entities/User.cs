@@ -19,6 +19,7 @@ namespace Entities
         [StringLength(200)]
         public string? Address { get; set; }
         public Guid? AssociatedTenantID { get; set; }
+        public WhiteLabelTenant? AssociatedTenant { get; set; }
 
     }
 }
