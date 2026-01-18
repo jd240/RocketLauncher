@@ -1,0 +1,98 @@
+﻿@model IEnumerable<TenantResponse>
+
+
+@{
+    ViewBag.Title = "Tenant List";
+}
+<form action="~/tenants/index" method="get">
+    <h1> Tenants </h1>
+    <a href="~/tenants/create">Create Tenant</a>
+<h1>Tenant List</h1>
+
+<table class="table table-striped table-bordered w-100 mt-3">
+        <thead>
+            <tr>
+                <th>
+                        Tenant ID
+                </th>
+                <th>
+                    <a asp-controller="Tenant"
+                       asp-action="Index">
+                        Tenant Name
+                    </a>
+                    <i class="fa-solid"></i>
+                </th>
+                <th>
+                    <a asp-controller="Tenant"
+                       asp-action="Index">
+                        Address
+                    </a>
+                    <i class="fa-solid"></i>
+                </th>
+                <th>
+                    <a asp-controller="Tenant"
+                       asp-action="Index">
+                        Slug
+                    </a>
+                    <i class="fa-solid"></i>
+                </th>
+
+                <th>
+                    <a asp-controller="Tenant"
+                       asp-action="Index">
+                        IsActive
+                    </a>
+                    <i class="fa-solid"></i>
+                </th>
+
+                <th>
+                    <a asp-controller="Tenant"
+                       asp-action="Index">
+                        Creation Time
+                    </a>
+                    <i class="fa-solid"></i>
+                </th>
+
+                <th>
+                    <a asp-controller="Tenant"
+                       asp-action="Index">
+                        Contract Email
+                    </a>
+                    <i class="fa-solid"></i>
+                </th>
+
+            </tr>
+        </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.TenantID</td>
+                    <td>@user.TenantName</td>
+                    <td>@user.AddressLine1</td>
+                    <td>@user.Slug</td>
+                    <td>@user.IsActive</td>
+                    <td>@user.CreatedAtUtc.ToString("yyyy-MM-dd")</td>
+                    <td>@user.ContactEmail</td>
+                    <td>
+                            <a asp-controller="Tenant" asp-action="UpdateUser" asp-route-UserID="@user.TenantID">Edit</a>
+                    </td>
+                    <td>
+                            <a asp-controller="Tenant" asp-action="DeleteUser" asp-route-UserID="@user.TenantID">Delete</a>
+                   </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="10" class="text-center text-muted">
+                    No users found.
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</form>

@@ -229,6 +229,7 @@ namespace Service
             ValidationHelper.ModelValidation(Tenantrequest);
             WhiteLabelTenant user = Tenantrequest.ToTenant();
             user.TenantID = Guid.NewGuid();
+            //user.IsActive = true;
             _users.WhiteLabelTenants.Add(user);
             _users.SaveChanges();
             return convertTenantIntoUserResponse(user);

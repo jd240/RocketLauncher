@@ -95,7 +95,7 @@
             <div class="flex-1">
                 <select name="TenantID" id="TenantID" class="form-input">
                     <option value="">Please Select</option>
-                    @foreach (UserResponse tenant in ViewBag.Tenants)
+                    @foreach (TenantResponse tenant in ViewBag.Tenants)
                     {
                         <option value="@tenant.TenantID">@tenant.TenantName</option>
                     }

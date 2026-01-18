@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Create User";
+}
+<a href="~/users/index" class="link-hover"> Back to User List</a>
+<h2>Create Tenant</h2>
+<div class="w-50">
+    <form action="~/tenants/create" method="post">
+        @*TenantName*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="TenantName" class="form-label">TenantName</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="TenantName" name="TenantName" class="form-input" />
+            </div>
+        </div>
+        @*Slug*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="Slug" class="form-label">Slug</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="Slug" name="Slug" class="form-input" />
+            </div>
+        </div>
+        @*ContactEmail*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="ContactEmail" class="form-label">ContactEmail</label>
+            </div>
+            <div class="flex-1">
+                <input type="email" id="ContactEmail" name="ContactEmail" class="form-input" />
+            </div>
+        </div>
+        @*AddressLine1*@
+        <div class="form-field flex">
+            <div class="w-25">
+                <label for="AddressLine1" class="form-label pt">AddressLine1</label>
+            </div>
+            <div class="flex-1">
+                <input type="text" id="AddressLine1" name="AddressLine1" class="form-input" />
+            </div>
+        </div>
+
+        @*Submit*@
+        <div class="form-field flex">
+            <div class="w-25">
+            </div>
+            <div class="flex-1">
+                <button class="button button-green-back">Create</button>
+
+                @if (ViewBag.Errors != null)
+                {
+                    <div class="text-red ml">
+                        <ul>
+                            @foreach (string error in ViewBag.Errors)
+                            {
+                                <li class="ml">@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
