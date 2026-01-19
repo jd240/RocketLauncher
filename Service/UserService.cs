@@ -199,7 +199,7 @@ namespace Service
         private UserResponse convertUserIntoUserResponse(User user)
         {
             UserResponse userResponse = user.ToPersonResponse();
-            userResponse.AssociatedTenantName = GetUserByTenantID(user.AssociatedTenantID)?.TenantName;
+            userResponse.AssociatedTenantName = GetUserByTenantID(user.TenantID)?.TenantName;
             return userResponse;
         }
         private TenantResponse convertTenantIntoUserResponse(WhiteLabelTenant user)
@@ -399,9 +399,9 @@ namespace Service
                 user.emailVerified = request.emailVerified.Value;
 
             if (request.AssociatedTenantID.HasValue)
-                user.AssociatedTenantID = request.AssociatedTenantID;
+                user.TenantID = request.AssociatedTenantID;
             else
-                user.AssociatedTenantID = null;
+                user.TenantID = null;
         }
 
         public bool DeleteUser(Guid? UserID)

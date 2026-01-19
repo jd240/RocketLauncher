@@ -79,7 +79,7 @@ namespace DataTransferObject.DTO
                 DateOfBirth = person.DateOfBirth,
                 UserRole = person.UserRole,
                 Address = person.Address,
-                AssociatedTenantID = person.AssociatedTenantID
+                AssociatedTenantID = person.TenantID
             };
         }
     }

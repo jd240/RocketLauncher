@@ -15,17 +15,16 @@ namespace DataTransferObject.DTO
         public bool? isRequired { get; set; }
         public string? OptionsJSON { get; set; }
         public Guid? ModuleId { get; set; }
-        public Question toQuestion()
-        {
-            return new Question()
-            {
-                QuestionId = QuestionId,
-                QuestionText = QuestionText,
-                QuestionType = QuestionType.ToString(),
-                isRequired = isRequired,
-                OptionsJSON = OptionsJSON,
-                ModuleId = (Guid)ModuleId
-            };
+        //public Question toQuestion()
+        //{
+          //  return new Question()
+          //  {
+           //     QuestionId = QuestionId,
+            //    QuestionText = QuestionText,
+            //    QuestionType = QuestionType.ToString(),
+             //   isRequired = isRequired,
+             //   OptionsJSON = OptionsJSON,
+             //   ModuleId = (Guid)ModuleId
+           // };
         }
     }
-}

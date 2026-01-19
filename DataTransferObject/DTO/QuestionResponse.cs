@@ -32,19 +32,19 @@ namespace DataTransferObject.DTO
         }
     }
 
-    public static class QuestionExtensions
-    {
-        public static QuestionResponse ToQuestionResponse(this Question question)
-        {
-            return new QuestionResponse()
-            {
-                QuestionId = question.QuestionId,
-                ModuleId = question.ModuleId,
-                QuestionText = question.QuestionText,
-                QuestionType = question.QuestionType,
-                isRequired = question.isRequired,
-                OptionsJSON = question.OptionsJSON
-            };
-        }
-    }
+    //public static class QuestionExtensions
+    //{
+    //    public static QuestionResponse ToQuestionResponse(this Question question)
+    //    {
+    //        return new QuestionResponse()
+    //        {
+    //            QuestionId = question.QuestionId,
+    //            ModuleId = question.ModuleId,
+    //            QuestionText = question.QuestionText,
+    //            QuestionType = question.QuestionType,
+    //            isRequired = question.isRequired,
+    //            OptionsJSON = question.OptionsJSON
+    //        };
+    //    }
+    //}
 }

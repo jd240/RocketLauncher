@@ -25,7 +25,7 @@ namespace DataTransferObject.DTO
         public User toUser()
         {
             return new User() { UserName = UserName, FirstName = FirstName, LastName = LastName, Email = Email, emailVerified = emailVerified, 
-                DateOfBirth = DateOfBirth, UserRole = UserRole.ToString(), Address = Address, AssociatedTenantID = AssociatedTenantID};
+                DateOfBirth = DateOfBirth, UserRole = UserRole.ToString(), Address = Address, TenantID = AssociatedTenantID};
         }
     }
 }

@@ -35,7 +35,7 @@ namespace DataTransferObject.DTO
                 DateOfBirth = DateOfBirth,
                 UserRole = UserRole.ToString(),
                 Address = Address,
-                AssociatedTenantID = AssociatedTenantID
+                TenantID = AssociatedTenantID
             };
         }
     }

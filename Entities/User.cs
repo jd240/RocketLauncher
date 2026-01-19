@@ -18,8 +18,8 @@ namespace Entities
         public string? UserRole { get; set; }
         [StringLength(200)]
         public string? Address { get; set; }
-        public Guid? AssociatedTenantID { get; set; }
-        public WhiteLabelTenant? AssociatedTenant { get; set; }
+        public Guid? TenantID { get; set; }
+        public WhiteLabelTenant? Tenant { get; set; }
 
     }
 }
