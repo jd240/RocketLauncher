@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36717.8 d17.14
+VisualStudioVersion = 17.14.36717.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketLauncher", "RocketLauncher\RocketLauncher.csproj", "{08651E56-2D95-44F1-BC7D-FB43B299C9B4}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransferObject", "DataTransferObject\DataTransferObject.csproj", "{E564C61B-EC25-4B53-BFC2-7746DF023512}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{21D4D435-276B-445F-B44D-2E5360CAEEAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{06DBFBBF-FB39-4FDE-8178-76F34B579748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{21D4D435-276B-445F-B44D-2E5360CAEEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D4D435-276B-445F-B44D-2E5360CAEEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21D4D435-276B-445F-B44D-2E5360CAEEAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06DBFBBF-FB39-4FDE-8178-76F34B579748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06DBFBBF-FB39-4FDE-8178-76F34B579748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06DBFBBF-FB39-4FDE-8178-76F34B579748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06DBFBBF-FB39-4FDE-8178-76F34B579748}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

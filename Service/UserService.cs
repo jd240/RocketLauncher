@@ -236,7 +236,7 @@ namespace Service
         }
         public List<UserResponse> ListAllUser()
         {
-            var test = _users.Users.Include("AssociatedTenant").ToList();
+            //var test = _users.Users.Include("AssociatedTenant").ToList();
             // Get regular users
             var regularUsers = _users.Users.ToList().Select(u => convertUserIntoUserResponse(u))
            .ToList();

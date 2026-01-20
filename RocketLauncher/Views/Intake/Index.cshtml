@@ -1,0 +1,87 @@
+﻿@using ViewModels
+@model IntakeFormVM
+
+@{
+    ViewData["Title"] = "Initial Intake";
+}
+
+<h2>Initial Intake</h2>
+
+<p class="text-muted">
+    Answer a few quick questions so we can build your personalised business roadmap.
+</p>
+
+<form asp-action="Index" asp-controller="Intake" method="post">
+
+    <input type="hidden" asp-for="ModuleId" />
+
+    <div class="intake-questions">
+
+        @for (int i = 0; i < Model.Questions.Count; i++)
+        {
+            var q = Model.Questions[i];
+
+            <div class="card mb-3">
+                <div class="card-body">
+
+                    <!-- Hidden fields so model binder keeps IDs + metadata -->
+                    <input type="hidden" name="Questions[@i].QuestionId" value="@q.QuestionId" />
+                    <input type="hidden" name="Questions[@i].Key" value="@q.Key" />
+                    <input type="hidden" name="Questions[@i].Prompt" value="@q.Prompt" />
+                    <input type="hidden" name="Questions[@i].QuestionType" value="@q.QuestionType" />
+                    <input type="hidden" name="Questions[@i].IsRequired" value="@q.IsRequired" />
+
+                    <div class="form-group">
+                        <label class="font-weight-bold">
+                            @(i + 1). @q.Prompt
+                            @if (q.IsRequired)
+                            {
+                                <span class="text-danger">*</span>
+                            }
+                        </label>
+
+                        @if (string.Equals(q.QuestionType, "YesNo", StringComparison.OrdinalIgnoreCase)
+                                            || string.Equals(q.QuestionType, "SingleSelect", StringComparison.OrdinalIgnoreCase))
+                        {
+                            foreach (var opt in q.Options)
+                            {
+                                var isChecked = string.Equals(q.Answer, opt.Value, StringComparison.OrdinalIgnoreCase);
+
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           name="Questions[@i].Answer"
+                                           value="@opt.Value"
+                                           id="q_@q.QuestionId@opt.Value"
+                                           @(isChecked ? "checked" : "") />
+
+                                    <label class="form-check-label" for="q_@q.QuestionId@opt.Value">
+                                        @opt.Label
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <!-- Fallback for future Text/Number/etc. -->
+                            <input class="form-control"
+                                   type="text"
+                                   name="Questions[@i].Answer"
+                                   value="@q.Answer" />
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">
+            Continue
+        </button>
+    </div>
+
+</form>
